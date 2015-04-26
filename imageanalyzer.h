@@ -5,16 +5,17 @@
 #include <QImage>
 #include <QDebug>
 #include <QRgb>
+#include <QColor>
 
 class ImageAnalyzer
 {
 public:
     ImageAnalyzer();
     void start(QString filePath);
-    QVector<int> getData();
+     QVector< QPair<QString, int> > getData();
 private:
     QImage image;
-    QVector<int> data;
+     QVector< QPair<QString, int> > data;
 };
 
 #endif // IMAGEANALYZER_H

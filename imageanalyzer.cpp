@@ -8,16 +8,16 @@ void ImageAnalyzer::start(QString filePath)
 {
 
     if (image.load(filePath)) {
-        QVector< QPair<unsigned, int> > colorCount;
+        QVector< QPair<QString, int> > colorCount;
         for (int x=0; x < image.width(); x++) {
             for (int y=0; y < image.height(); y++) {
-                unsigned value = image.pixel(x, y);
+                QString value = ((QColor)image.pixel(x, y)).name();
                 int i = 0;
                 bool listo = false;
 
                 while (i < colorCount.size() && !listo){
                     if (colorCount.at(i).first == value) {
-                        QPair<unsigned, int> temp;
+                        QPair<QString, int> temp;
                         temp.first = value;
                         temp.second = colorCount.at(i).second+1;
                         colorCount.removeAt(i);
@@ -27,21 +27,19 @@ void ImageAnalyzer::start(QString filePath)
                     else i++;
                 }
                 if (!listo) {
-                    QPair<unsigned, int> temporal;
+                    QPair<QString, int> temporal;
                     temporal.first = value;
                     temporal.second = 1;
                     colorCount.push_back(temporal);
                 }
             }
         }
-        for (int i=0; i < colorCount.size(); i++) {
-            data.push_back(colorCount.at(i).second);
-        }
+        data = colorCount;
         qDebug() << data;
     }
 }
 
-QVector<int> ImageAnalyzer::getData()
+ QVector< QPair<QString, int> > ImageAnalyzer::getData()
 {
     return data;
 }

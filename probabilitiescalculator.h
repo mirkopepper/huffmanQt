@@ -9,9 +9,9 @@ class ProbabilitiesCalculator
 {
 public:
     ProbabilitiesCalculator();
-    void calculate(const QVector<int> &data);
+    void calculate(const QVector< QPair<QString, int> > &data);
 private:
-    QVector<double> probs;
+     QVector< QPair<QString, double> > probs;
 
 };
 
