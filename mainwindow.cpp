@@ -47,5 +47,8 @@ void MainWindow::displayText()
 void MainWindow::on_startButton_clicked()
 {
     IA.start(filePath);
+    ProbabilitiesCalculator prob;
+    prob.calculate(IA.getData());
+
 
 }

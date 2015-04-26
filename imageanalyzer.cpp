@@ -34,17 +34,14 @@ void ImageAnalyzer::start(QString filePath)
                 }
             }
         }
-        qDebug() << colorCount;
-        for (int i=1; i <= colorCount.size(); i++) {
-            QPair<unsigned, int> temp;
-            temp.first = i;
-            temp.second = colorCount.at(i-1).second;
-            data.push_back(temp);
+        for (int i=0; i < colorCount.size(); i++) {
+            data.push_back(colorCount.at(i).second);
         }
+        qDebug() << data;
     }
 }
 
-QVector< QPair<int, int> > ImageAnalyzer::getData()
+QVector<int> ImageAnalyzer::getData()
 {
     return data;
 }

@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    imageanalyzer.cpp
+    imageanalyzer.cpp \
+    probabilitiescalculator.cpp
 
 HEADERS  += mainwindow.h \
-    imageanalyzer.h
+    imageanalyzer.h \
+    probabilitiescalculator.h
 
 FORMS    += mainwindow.ui

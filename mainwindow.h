@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QPixmap>
 #include "imageanalyzer.h"
+#include "probabilitiescalculator.h"
 
 namespace Ui {
 class MainWindow;
