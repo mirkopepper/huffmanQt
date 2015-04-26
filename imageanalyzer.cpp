@@ -13,25 +13,30 @@ void ImageAnalyzer::start(QString filePath)
             for (int y=0; y < image.height(); y++) {
                 QString value = ((QColor)image.pixel(x, y)).name();
                 int i = 0;
-                bool listo = false;
+                bool counted = false;
 
-                while (i < colorCount.size() && !listo){
+                while (i < colorCount.size() && !counted){
                     if (colorCount.at(i).first == value) {
                         colorCount.replace(i, qMakePair(value, colorCount.at(i).second+1));
-                        listo = true;
+                        counted = true;
                     }
                     else i++;
                 }
-                if (!listo)
+                if (!counted)
                     colorCount.push_back(qMakePair(value, 1));
             }
         }
-        data = colorCount;
-        qDebug() << data;
+        this->data = colorCount;
     }
+    this->totalPixels =  image.width()*image.height();
 }
 
- QVector< QPair<QString, int> > ImageAnalyzer::getData()
+QVector< QPair<QString, int> > ImageAnalyzer::getData()
 {
     return data;
+}
+
+int ImageAnalyzer::getTotalPixels()
+{
+    return totalPixels;
 }
