@@ -55,7 +55,7 @@ void MainWindow::startTable()
 
         QTableWidgetItem *item = new QTableWidgetItem(probs.at(j).first);
         ui->solutionTable->setItem(j, 0,item);
-        QTableWidgetItem *item2 = new QTableWidgetItem(probs.at(j).second);
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(probs.at(j).second));
         ui->solutionTable->setItem(j, 1, item2);
     }
 }

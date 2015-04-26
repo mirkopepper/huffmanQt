@@ -11,10 +11,9 @@ void ProbabilitiesCalculator::calculate(const QVector< QPair<QString, int> > &da
         total += data.at(i).second;
     }
     for (int e = 0; e < data.size(); e++) {
-        QPair<QString, double> temporal;
-        temporal.first = data.at(e).first;
-        temporal.second = (double)(data.at(e).second)/total;
-        probs.push_back(temporal);
+        QString first = data.at(e).first;
+        double second = (double)(data.at(e).second)/total;
+        probs.push_back(qMakePair(first, second));
     }
     qDebug() << probs;
 }

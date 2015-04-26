@@ -17,21 +17,13 @@ void ImageAnalyzer::start(QString filePath)
 
                 while (i < colorCount.size() && !listo){
                     if (colorCount.at(i).first == value) {
-                        QPair<QString, int> temp;
-                        temp.first = value;
-                        temp.second = colorCount.at(i).second+1;
-                        colorCount.removeAt(i);
-                        colorCount.push_back(temp);
+                        colorCount.replace(i, qMakePair(value, colorCount.at(i).second+1));
                         listo = true;
                     }
                     else i++;
                 }
-                if (!listo) {
-                    QPair<QString, int> temporal;
-                    temporal.first = value;
-                    temporal.second = 1;
-                    colorCount.push_back(temporal);
-                }
+                if (!listo)
+                    colorCount.push_back(qMakePair(value, 1));
             }
         }
         data = colorCount;
