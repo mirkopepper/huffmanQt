@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>782</width>
+    <width>564</width>
     <height>517</height>
    </rect>
   </property>
@@ -65,15 +65,31 @@
     <attribute name="horizontalHeaderDefaultSectionSize">
      <number>94</number>
     </attribute>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
+    <column>
+     <property name="text">
+      <string>Symbol</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Prob.</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Huffman code</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Lenght</string>
+     </property>
+    </column>
    </widget>
    <widget class="QTextBrowser" name="LBox">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>503</x>
       <y>80</y>
       <width>51</width>
       <height>31</height>
@@ -83,7 +99,7 @@
    <widget class="QTextBrowser" name="HBox">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>503</x>
       <y>120</y>
       <width>51</width>
       <height>31</height>
@@ -93,11 +109,65 @@
    <widget class="QTextBrowser" name="nBox">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>503</x>
       <y>160</y>
       <width>51</width>
       <height>31</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LLabel">
+    <property name="geometry">
+     <rect>
+      <x>463</x>
+      <y>88</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;L&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="HLabel">
+    <property name="geometry">
+     <rect>
+      <x>463</x>
+      <y>128</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>H(S)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="nLabel">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>160</y>
+      <width>46</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>η</string>
     </property>
    </widget>
   </widget>
@@ -106,7 +176,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>782</width>
+     <width>564</width>
      <height>21</height>
     </rect>
    </property>
