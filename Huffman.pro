@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     imageanalyzer.cpp \
-    probabilitiescalculator.cpp
+    probabilitiescalculator.cpp \
+    huffmanalgorithm.cpp
 
 HEADERS  += mainwindow.h \
     imageanalyzer.h \
-    probabilitiescalculator.h
+    probabilitiescalculator.h \
+    huffmanalgorithm.h
 
 FORMS    += mainwindow.ui
