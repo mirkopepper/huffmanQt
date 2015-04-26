@@ -18,3 +18,8 @@ void ProbabilitiesCalculator::calculate(const QVector< QPair<QString, int> > &da
     }
     qDebug() << probs;
 }
+
+QVector< QPair<QString, double> > ProbabilitiesCalculator::getProbabilities()
+{
+    return probs;
+}

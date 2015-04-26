@@ -50,5 +50,6 @@ void MainWindow::on_startButton_clicked()
     ProbabilitiesCalculator prob;
     prob.calculate(IA.getData());
 
+    //to_mirko(prob.getProbabilities());
 
 }
