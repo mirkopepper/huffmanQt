@@ -6,6 +6,9 @@ class HuffmanAlgorithm
 {
 public:
     HuffmanAlgorithm();
+
+private:
+
 };
 
 #endif // HUFFMANALGORITHM_H
