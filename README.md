@@ -1,1 +1,1 @@
-# hoffmanQt
+# huffmanQt
