@@ -64,7 +64,7 @@ void MainWindow::on_startButton_clicked()
 {
     IA.start(filePath);
     ProbabilitiesCalculator prob;
-    prob.calculate(IA.getData());
+    prob.calculate(IA.getData(), IA.getTotalPixels());
     probs = prob.getProbabilities();
 
     startTable();
