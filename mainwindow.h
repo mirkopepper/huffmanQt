@@ -32,8 +32,10 @@ private:
     QString fileName;
     void displayText();
     void displayDataText();
+    void startTable();
 
     ImageAnalyzer IA;
+    QVector< QPair<QString, double> > probs;
 };
 
 #endif // MAINWINDOW_H

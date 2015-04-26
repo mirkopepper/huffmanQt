@@ -44,12 +44,34 @@ void MainWindow::displayText()
     ui->fileNameBox->setText(fileName);
 }
 
+void MainWindow::startTable()
+{
+    //ui->solutionTable->verticalHeader()->hide();
+    ui->solutionTable->setRowCount(0);
+    for (int j = 0; j < probs.size(); j++) {
+        ui->solutionTable->insertRow(j);
+    }
+    for (int j = 0; j < probs.size(); j++) {
+
+        QTableWidgetItem *item = new QTableWidgetItem(probs.at(j).first);
+        ui->solutionTable->setItem(j, 0,item);
+        QTableWidgetItem *item2 = new QTableWidgetItem(probs.at(j).second);
+        ui->solutionTable->setItem(j, 1, item2);
+    }
+}
+
 void MainWindow::on_startButton_clicked()
 {
     IA.start(filePath);
     ProbabilitiesCalculator prob;
     prob.calculate(IA.getData());
+    probs = prob.getProbabilities();
 
-    //to_mirko(prob.getProbabilities());
+    startTable();
+
+
+    //to_mirko();
+
+
 
 }
