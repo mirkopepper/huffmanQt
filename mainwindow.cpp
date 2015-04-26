@@ -66,9 +66,10 @@ void MainWindow::on_startButton_clicked()
     ProbabilitiesCalculator prob;
     prob.calculate(IA.getData(), IA.getTotalPixels());
     probs = prob.getProbabilities();
-
     startTable();
-
+    HA.setData(probs);
+    HA.run();
+    qDebug() << HA.getEntropy();
 
     //to_mirko();
 

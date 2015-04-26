@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include "imageanalyzer.h"
 #include "probabilitiescalculator.h"
+#include "huffmanalgorithm.h"
 
 namespace Ui {
 class MainWindow;
@@ -33,7 +34,7 @@ private:
     void displayText();
     void displayDataText();
     void startTable();
-
+    HuffmanAlgorithm HA;
     ImageAnalyzer IA;
     QVector< QPair<QString, double> > probs;
 };
