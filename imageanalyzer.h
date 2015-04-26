@@ -11,8 +11,10 @@ class ImageAnalyzer
 public:
     ImageAnalyzer();
     void start(QString filePath);
+    QVector< QPair<int, int> > getData();
 private:
     QImage image;
+    QVector< QPair<int, int> > data;
 };
 
 #endif // IMAGEANALYZER_H
