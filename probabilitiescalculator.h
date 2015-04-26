@@ -9,7 +9,7 @@ class ProbabilitiesCalculator
 {
 public:
     ProbabilitiesCalculator();
-    void calculate(const QVector< QPair<QString, int> > &data);
+    void calculate(const QVector< QPair<QString, int> > &data, int total);
     QVector< QPair<QString, double> > getProbabilities();
 private:
      QVector< QPair<QString, double> > probs;
