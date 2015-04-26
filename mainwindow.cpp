@@ -17,7 +17,7 @@ void MainWindow::on_selectFileButton_clicked()
 {
     QFileDialog dialog;
     dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.setNameFilter("Image (*.jpg)");
+    dialog.setNameFilter("Image (*.png)");
     int result = dialog.exec();
     if (result)
         filePath = dialog.selectedFiles().first();

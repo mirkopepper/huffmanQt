@@ -3,6 +3,8 @@
 
 #include <QString>
 #include <QImage>
+#include <QDebug>
+#include <QRgb>
 
 class ImageAnalyzer
 {
