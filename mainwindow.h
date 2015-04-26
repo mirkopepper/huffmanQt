@@ -5,6 +5,7 @@
 #include <QString>
 #include <QFileDialog>
 #include <QPixmap>
+#include "imageanalyzer.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +22,8 @@ public:
 private slots:
     void on_selectFileButton_clicked();
 
+    void on_startButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString filePath;
@@ -28,6 +31,8 @@ private:
     QString fileName;
     void displayText();
     void displayDataText();
+
+    ImageAnalyzer IA;
 };
 
 #endif // MAINWINDOW_H

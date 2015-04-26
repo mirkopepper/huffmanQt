@@ -43,3 +43,9 @@ void MainWindow::displayText()
 {
     ui->fileNameBox->setText(fileName);
 }
+
+void MainWindow::on_startButton_clicked()
+{
+    IA.start(filePath);
+
+}
