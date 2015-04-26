@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    imageanalyzer.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    imageanalyzer.h
 
 FORMS    += mainwindow.ui
