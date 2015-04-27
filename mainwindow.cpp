@@ -89,11 +89,11 @@ QVector< QPair<int, double> > MainWindow::lenghtData()
     for (int i = 0; i < probs.size(); i++) {
         QTableWidgetItem *proba = ui->solutionTable->item(i, 1);
         QTableWidgetItem *lenght = ui->solutionTable->item(i, 3);
-        QString probatext = (*proba).text();
-        QString lenghttext = (*lenght).text();
-        int probaint = probatext.toInt();
-        double lenghtdouble = lenghttext.toDouble();
-        data.append(qMakePair(probaint, lenghtdouble));
+        QString probaText = (*proba).text();
+        QString lenghtText = (*lenght).text();
+        double p = probaText.toDouble();
+        int l = lenghtText.toInt();
+        data.append(qMakePair(l, p));
     }
     return data;
 }
