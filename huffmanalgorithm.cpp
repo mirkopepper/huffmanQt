@@ -61,15 +61,20 @@ void HuffmanAlgorithm::insert(QVector<Node> & list, Node n)
 void HuffmanAlgorithm::generateCode(Node n, QString huffcode)
 {
     if (n.left != NULL) {
-        QString c = QString::number(n.code);
-        huffcode.append(c);
-        qDebug() << "apendeado: " << huffcode;
-        generateCode(*n.left, huffcode);
-        generateCode(*n.right, huffcode);
+        Node *nodeleft= n.left;
+        Node *noderight= n.right;
+        QString cLeft = QString::number(nodeleft->code);
+        QString cRight = QString::number(noderight->code);
+        QString huffcodeLeft;
+        huffcodeLeft.append(huffcode);
+        QString huffcodeRight;
+        huffcodeRight.append(huffcode);
+        huffcodeLeft.append(cLeft);
+        huffcodeRight.append(cRight);
+        generateCode(*n.left, huffcodeLeft);
+        generateCode(*n.right, huffcodeRight);
     }
     else {
-        QString c = QString::number(n.code);
-        huffcode.append(c);
         solution.push_back(qMakePair(n.symbol, huffcode));
     }
 
