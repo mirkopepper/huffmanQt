@@ -72,7 +72,6 @@ void MainWindow::updateTable(QVector< QPair<QString, QString> > solution)
                 ui->solutionTable->setItem(i,2, item);
                 QString code = solution.at(j).second;
                 int lenght = code.length();
-                qDebug() << lenght;
                 QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(lenght));
                 ui->solutionTable->setItem(i,3, item2);
                 done = true;
@@ -109,9 +108,8 @@ void MainWindow::on_startButton_clicked()
     HA.run();
     QVector< QPair<QString, QString> > solution = HA.getSolution();
     updateTable(solution);
-    qDebug() << this->lenghtData();
     HA.setData(this->lenghtData());
-    qDebug() << "Average Length: " << HA.getAverageLength();
-    qDebug() << "Entropy: " << HA.getEntropy();
-    qDebug() << "Performance: " << HA.getPerformance();
+    ui->LBox->setText(QString::number(HA.getAverageLength()));
+    ui->HBox->setText(QString::number(HA.getEntropy()));
+    ui->nBox->setText(QString::number(HA.getPerformance()));
 }
