@@ -46,7 +46,6 @@ void MainWindow::displayText()
 
 void MainWindow::startTable()
 {
-    //ui->solutionTable->verticalHeader()->hide();
     ui->solutionTable->setRowCount(0);
     for (int j = 0; j < probs.size(); j++) {
         ui->solutionTable->insertRow(j);
@@ -60,6 +59,31 @@ void MainWindow::startTable()
     }
 }
 
+
+void MainWindow::updateTable(QVector< QPair<QString, QString> > solution)
+{
+
+    for (int j = 0; j < solution.size(); j++) {
+        int i = 0;
+        bool done = false;
+        while (i < probs.size() && !done) {
+            if ((probs.at(i).first) == (solution.at(j)).first) {
+                QTableWidgetItem *item = new QTableWidgetItem(solution.at(j).second);
+                ui->solutionTable->setItem(i,2, item);
+                QString code = solution.at(j).second;
+                int lenght = code.length();
+                qDebug() << lenght;
+                QTableWidgetItem *item2 = new QTableWidgetItem(lenght);
+                ui->solutionTable->setItem(i,3, item2);
+                done = true;
+            }
+            else
+                i++;
+        }
+    }
+}
+
+
 void MainWindow::on_startButton_clicked()
 {
     IA.start(filePath);
@@ -69,7 +93,9 @@ void MainWindow::on_startButton_clicked()
     startTable();
     HA.setData(probs);
     HA.run();
-    qDebug() << HA.getEntropy();
+    QVector< QPair<QString, QString> > solution = HA.getCodes();
+    updateTable(solution);
+    //qDebug() << HA.getEntropy();
 
     //to_mirko();
 
