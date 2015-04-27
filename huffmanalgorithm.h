@@ -27,7 +27,7 @@ public:
 private:
     void sortProbabilities();
     void generateCode(Node n, QString huffcode);
-    void insert(QVector<Node> list, Node n);
+    void insert(QVector<Node> & list, Node n);
     QVector< QPair<QString, double> > probabilities;
     QVector< QPair<double, QString> > codes;
     QVector< QPair<QString, QString> > solution;
@@ -37,7 +37,7 @@ private:
         template<typename T1, typename T2>
         bool operator()(const QPair<T1,T2> & a, const QPair<T1,T2> & b) const
         {
-            return a.second < b.second;
+            return a.second > b.second;
         }
     };
 };
