@@ -18,11 +18,12 @@ class HuffmanAlgorithm
 {
 public:
     HuffmanAlgorithm();
-    void setData(QVector< QPair<QString, double> > p);
+    void setProbabilities(QVector< QPair<QString, double> > p);
     void run();
-    double getAverageLength(QVector<QPair<int, double> > codes);
+    double getAverageLength();
     double getPerformance();
     double getEntropy();
+    void setData(QVector< QPair<int, double> > data);
     QVector< QPair<QString, QString> > getSolution();
 private:
     void sortProbabilities();
@@ -30,6 +31,7 @@ private:
     void insert(QVector<Node> & list, Node n);
     QVector< QPair<QString, double> > probabilities;
     QVector< QPair<QString, QString> > solution;
+    QVector< QPair<int, double> > data;
     QVector<Node> convert();
     struct Comparator
     {
