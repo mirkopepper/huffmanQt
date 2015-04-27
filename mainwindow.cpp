@@ -72,6 +72,7 @@ void MainWindow::updateTable(QVector< QPair<QString, QString> > solution)
                 ui->solutionTable->setItem(i,2, item);
                 QString code = solution.at(j).second;
                 int lenght = code.length();
+                qDebug() << lenght;
                 QTableWidgetItem *item2 = new QTableWidgetItem(lenght);
                 ui->solutionTable->setItem(i,3, item2);
                 done = true;
@@ -79,13 +80,6 @@ void MainWindow::updateTable(QVector< QPair<QString, QString> > solution)
             else
                 i++;
         }
-
-
-
-        QTableWidgetItem *item = new QTableWidgetItem(probs.at(j).first);
-        ui->solutionTable->setItem(j, 0,item);
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(probs.at(j).second));
-        ui->solutionTable->setItem(j, 1, item2);
     }
 }
 
