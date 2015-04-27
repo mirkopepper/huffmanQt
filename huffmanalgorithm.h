@@ -5,6 +5,15 @@
 #include <QString>
 #include <QPair>
 
+struct Node
+{
+    int code;
+    double probability;
+    QString symbol;
+    Node *left;
+    Node *right;
+};
+
 class HuffmanAlgorithm
 {
 public:
@@ -17,8 +26,12 @@ public:
     QVector< QPair<double, QString> > getCodes();
 private:
     void sortProbabilities();
+    void generateCode(Node n, QString huffcode);
+    void insert(QVector<Node> list, Node n);
     QVector< QPair<QString, double> > probabilities;
     QVector< QPair<double, QString> > codes;
+    QVector< QPair<QString, QString> > solution;
+    QVector<Node> convert();
     struct Comparator
     {
         template<typename T1, typename T2>
