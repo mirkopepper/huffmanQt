@@ -23,13 +23,12 @@ public:
     double getAverageLength();
     double getPerformance();
     double getEntropy();
-    QVector< QPair<double, QString> > getCodes();
+    QVector< QPair<QString, QString> > getCodes();
 private:
     void sortProbabilities();
     void generateCode(Node n, QString huffcode);
     void insert(QVector<Node> & list, Node n);
     QVector< QPair<QString, double> > probabilities;
-    QVector< QPair<double, QString> > codes;
     QVector< QPair<QString, QString> > solution;
     QVector<Node> convert();
     struct Comparator

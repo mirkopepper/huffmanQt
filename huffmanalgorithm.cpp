@@ -67,8 +67,12 @@ void HuffmanAlgorithm::generateCode(Node n, QString huffcode)
         generateCode(*n.left, huffcode);
         generateCode(*n.right, huffcode);
     }
-    else
+    else {
+        QString c = QString::number(n.code);
+        huffcode.append(c);
         solution.push_back(qMakePair(n.symbol, huffcode));
+    }
+
 }
 
 QVector<Node> HuffmanAlgorithm::convert()
@@ -92,11 +96,11 @@ void HuffmanAlgorithm::sortProbabilities()
     qSort(probabilities.begin(), probabilities.end(), Comparator());
 }
 
-double HuffmanAlgorithm::getAverageLength()
+/*double HuffmanAlgorithm::getAverageLength()
 {
     double sum = 0;
     QVector< QPair<double, QString> >::iterator it;
-    for(it=this->codes.begin(); it!=this->codes.end(); it++)
+    for(it=this->solution.begin(); it!=this->solution.end(); it++)
     {
         QString code = it->second;
         sum+= it->first * qLn(1/ code.length()) /qLn(2);
@@ -119,9 +123,9 @@ double HuffmanAlgorithm::getEntropy()
 double HuffmanAlgorithm::getPerformance()
 {
     return this->getEntropy()/this->getAverageLength();
-}
+}*/
 
-QVector< QPair<double, QString> > HuffmanAlgorithm::getCodes()
+QVector< QPair<QString, QString> > HuffmanAlgorithm::getCodes()
 {
-    return this->codes;
+    return this->solution;
 }
