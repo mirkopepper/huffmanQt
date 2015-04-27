@@ -73,7 +73,7 @@ void MainWindow::updateTable(QVector< QPair<QString, QString> > solution)
                 QString code = solution.at(j).second;
                 int lenght = code.length();
                 qDebug() << lenght;
-                QTableWidgetItem *item2 = new QTableWidgetItem(lenght);
+                QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(lenght));
                 ui->solutionTable->setItem(i,3, item2);
                 done = true;
             }
@@ -93,12 +93,7 @@ void MainWindow::on_startButton_clicked()
     startTable();
     HA.setData(probs);
     HA.run();
-    QVector< QPair<QString, QString> > solution = HA.getCodes();
+    QVector< QPair<QString, QString> > solution = HA.getSolution();
     updateTable(solution);
-    //qDebug() << HA.getEntropy();
-
-    //to_mirko();
-
-
 
 }
