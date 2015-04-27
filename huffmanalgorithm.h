@@ -20,7 +20,7 @@ public:
     HuffmanAlgorithm();
     void setData(QVector< QPair<QString, double> > p);
     void run();
-    double getAverageLength();
+    double getAverageLength(QVector<QPair<int, double> > codes);
     double getPerformance();
     double getEntropy();
     QVector< QPair<QString, QString> > getCodes();

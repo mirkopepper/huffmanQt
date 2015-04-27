@@ -101,14 +101,13 @@ void HuffmanAlgorithm::sortProbabilities()
     qSort(probabilities.begin(), probabilities.end(), Comparator());
 }
 
-/*double HuffmanAlgorithm::getAverageLength()
+double HuffmanAlgorithm::getAverageLength(QVector< QPair<int, double> > codes)
 {
     double sum = 0;
-    QVector< QPair<double, QString> >::iterator it;
-    for(it=this->solution.begin(); it!=this->solution.end(); it++)
+    QVector< QPair<int, double> >::iterator it;
+    for(it=codes.begin(); it!=codes.end(); it++)
     {
-        QString code = it->second;
-        sum+= it->first * qLn(1/ code.length()) /qLn(2);
+        sum+= it->second * qLn(1/ it->first) /qLn(2);
     }
     return sum;
 }
@@ -128,7 +127,7 @@ double HuffmanAlgorithm::getEntropy()
 double HuffmanAlgorithm::getPerformance()
 {
     return this->getEntropy()/this->getAverageLength();
-}*/
+}
 
 QVector< QPair<QString, QString> > HuffmanAlgorithm::getCodes()
 {
