@@ -18,24 +18,30 @@ void HuffmanAlgorithm::run()
 {
     this->sortProbabilities();
     QVector<Node> list = convert();
-    while (list.size() != 1)
+    while (list.size() > 1)
     {
-        Node node1 = list.takeLast();
-        node1.code = 0;
-        Node node2 = list.takeLast();
-        node2.code = 1;
-        Node newNode;
-        newNode.code = NULL;
-        newNode.probability = node1.probability + node2.probability;
-        *newNode.left = node1;
-        *newNode.right = node2;
-        insert(list, newNode);
+        Node * node1 = new Node;
+        *node1 = list.takeLast();
+        node1->code = 0;
+        Node * node2 = new Node;
+        *node2 = list.takeLast();
+        node2->code = 1;
+        Node * newNode = new Node;
+        newNode->left = NULL;
+        newNode->right = NULL;
+        newNode->code = NULL;
+        newNode->probability = node1->probability + node2->probability;
+        newNode->left = node1;
+        newNode->right = node2;
+
+        insert(list, *newNode);
     }
     generateCode(list.takeFirst(), "");
+    qDebug() << solution;
 
 }
 
-void HuffmanAlgorithm::insert(QVector<Node> list, Node n)
+void HuffmanAlgorithm::insert(QVector<Node> & list, Node n)
 {
     bool found = false;
     QVector<Node>::iterator it = list.begin();
@@ -48,12 +54,16 @@ void HuffmanAlgorithm::insert(QVector<Node> list, Node n)
         }
         it++;
     }
+    if (!found)
+            list.push_back(n);
 }
 
 void HuffmanAlgorithm::generateCode(Node n, QString huffcode)
 {
     if (n.left != NULL) {
-        huffcode.append(n.code);
+        QString c = QString::number(n.code);
+        huffcode.append(c);
+        qDebug() << "apendeado: " << huffcode;
         generateCode(*n.left, huffcode);
         generateCode(*n.right, huffcode);
     }
