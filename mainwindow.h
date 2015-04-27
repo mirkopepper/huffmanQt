@@ -35,6 +35,7 @@ private:
     void displayDataText();
     void startTable();
     void updateTable(QVector< QPair<QString, QString> > solution);
+    QVector< QPair<int, double> > lenghtData();
     HuffmanAlgorithm HA;
     ImageAnalyzer IA;
     QVector< QPair<QString, double> > probs;
