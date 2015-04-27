@@ -23,7 +23,7 @@ public:
     double getAverageLength(QVector<QPair<int, double> > codes);
     double getPerformance();
     double getEntropy();
-    QVector< QPair<QString, QString> > getCodes();
+    QVector< QPair<QString, QString> > getSolution();
 private:
     void sortProbabilities();
     void generateCode(Node n, QString huffcode);
