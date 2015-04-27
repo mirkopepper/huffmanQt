@@ -83,6 +83,20 @@ void MainWindow::updateTable(QVector< QPair<QString, QString> > solution)
     }
 }
 
+QVector< QPair<int, double> > MainWindow::lenghtData()
+{
+    QVector< QPair<int, double> > data;
+    for (int i = 0; i < probs.size(); i++) {
+        QTableWidgetItem *proba = ui->solutionTable->item(i, 1);
+        QTableWidgetItem *lenght = ui->solutionTable->item(i, 3);
+        QString probatext = (*proba).text();
+        QString lenghttext = (*lenght).text();
+        int probaint = probatext.toInt();
+        double lenghtdouble = lenghttext.toDouble();
+        data.append(qMakePair(probaint, lenghtdouble));
+    }
+    return data;
+}
 
 void MainWindow::on_startButton_clicked()
 {
@@ -91,9 +105,13 @@ void MainWindow::on_startButton_clicked()
     prob.calculate(IA.getData(), IA.getTotalPixels());
     probs = prob.getProbabilities();
     startTable();
-    HA.setData(probs);
+    HA.setProbabilities(probs);
     HA.run();
     QVector< QPair<QString, QString> > solution = HA.getSolution();
     updateTable(solution);
-
+    qDebug() << this->lenghtData();
+    HA.setData(this->lenghtData());
+    qDebug() << "Average Length: " << HA.getAverageLength();
+    qDebug() << "Entropy: " << HA.getEntropy();
+    qDebug() << "Performance: " << HA.getPerformance();
 }
