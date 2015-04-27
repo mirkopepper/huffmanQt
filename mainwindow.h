@@ -8,6 +8,7 @@
 #include "imageanalyzer.h"
 #include "probabilitiescalculator.h"
 #include "huffmanalgorithm.h"
+#include "about.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,8 @@ private slots:
 
     void on_startButton_clicked();
 
+    void on_aboutButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString filePath;
@@ -39,6 +42,7 @@ private:
     HuffmanAlgorithm HA;
     ImageAnalyzer IA;
     QVector< QPair<QString, double> > probs;
+    About aboutWindow;
 };
 
 #endif // MAINWINDOW_H

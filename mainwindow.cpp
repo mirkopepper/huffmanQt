@@ -113,3 +113,10 @@ void MainWindow::on_startButton_clicked()
     ui->HBox->setText(QString::number(HA.getEntropy()));
     ui->nBox->setText(QString::number(HA.getPerformance()));
 }
+
+
+void MainWindow::on_aboutButton_clicked()
+{
+    aboutWindow.setWindowTitle("About");
+    aboutWindow.show();
+}
