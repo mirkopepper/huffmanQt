@@ -37,8 +37,6 @@ void HuffmanAlgorithm::run()
         insert(list, *newNode);
     }
     generateCode(list.takeFirst(), "");
-    qDebug() << solution;
-
 }
 
 void HuffmanAlgorithm::insert(QVector<Node> & list, Node n)
@@ -107,7 +105,7 @@ double HuffmanAlgorithm::getAverageLength()
     QVector< QPair<int, double> >::iterator it;
     for(it=this->data.begin(); it!=this->data.end(); it++)
     {
-        sum += it->second * qLn(1/ it->first) /qLn(2);
+        sum += it->second * it->first;
     }
     return sum;
 }
