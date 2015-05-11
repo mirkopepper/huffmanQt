@@ -26,14 +26,15 @@ void ImageAnalyzer::start(QString filePath)
                     colorCount.push_back(qMakePair(value, 1));
             }
         }
-        this->data = colorCount;
+        this->ColorCount = colorCount;
+        this->totalPixels =  image.width()*image.height();
     }
-    this->totalPixels =  image.width()*image.height();
+    
 }
 
-QVector< QPair<QString, int> > ImageAnalyzer::getData()
+QVector< QPair<QString, int> > ImageAnalyzer::getColorCount()
 {
-    return data;
+    return this->ColorCount;
 }
 
 int ImageAnalyzer::getTotalPixels()

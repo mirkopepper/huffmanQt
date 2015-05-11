@@ -101,7 +101,10 @@ void MainWindow::on_startButton_clicked()
 {
     IA.start(filePath);
     ProbabilitiesCalculator prob;
-    prob.calculate(IA.getData(), IA.getTotalPixels());
+    prob.calculate(IA.getColorCount(), IA.getTotalPixels());
+    QVector< QVector<QString> > symbols;
+    QVector<double> symbProbs;
+    prob.extend(2, symbols, symbProbs);
     probs = prob.getProbabilities();
     startTable();
     HA.setProbabilities(probs);

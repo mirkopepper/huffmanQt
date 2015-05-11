@@ -12,11 +12,11 @@ class ImageAnalyzer
 public:
     ImageAnalyzer();
     void start(QString filePath);
-    QVector< QPair<QString, int> > getData();
+    QVector< QPair<QString, int> > getColorCount();
     int getTotalPixels();
 private:
     QImage image;
-    QVector< QPair<QString, int> > data;
+    QVector< QPair<QString, int> > ColorCount;
     int totalPixels;
 };
 
