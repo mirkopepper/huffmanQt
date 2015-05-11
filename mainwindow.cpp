@@ -46,20 +46,31 @@ void MainWindow::displayText()
 
 void MainWindow::startTable()
 {
-    ui->solutionTable->setRowCount(0);
-    for (int j = 0; j < probs.size(); j++) {
-        ui->solutionTable->insertRow(j);
+    ui->solutionTable->setColumnCount(0);
+    for (int j = 0; j < symbols.size(); j++) {
+        ui->solutionTable->insertColumn(j);
     }
-    for (int j = 0; j < probs.size(); j++) {
+    for (int j = 0; j < symbols.size(); j++) {
+        QString symbolString;
+        symbolString.append("{");
+        for (int i = 0; i < symbols.at(j).getColors().size(); i++) {
+            if (i != 0) {
+                symbolString.append(", ");
+            }
+            symbolString.append(symbols.at(j).getColors().at(i));
+        }
+        symbolString.append("}");
 
-        QTableWidgetItem *item = new QTableWidgetItem(probs.at(j).first);
-        ui->solutionTable->setItem(j, 0,item);
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(probs.at(j).second));
-        ui->solutionTable->setItem(j, 1, item2);
+        QTableWidgetItem *item = new QTableWidgetItem(symbolString);
+        ui->solutionTable->setItem(0, j,item);
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(symbols.at(j).getProbability()));
+        ui->solutionTable->setItem(1, j, item2);
+        QTableWidgetItem *item3 = new QTableWidgetItem(symbols.at(j).getHuffmanCode());
+        ui->solutionTable->setItem(2, j, item3);
     }
 }
 
-
+/*
 void MainWindow::updateTable(QVector< QPair<QString, QString> > solution)
 {
 
@@ -80,8 +91,8 @@ void MainWindow::updateTable(QVector< QPair<QString, QString> > solution)
                 i++;
         }
     }
-}
-
+}*/
+/*
 QVector< QPair<int, double> > MainWindow::lenghtData()
 {
     QVector< QPair<int, double> > data;
@@ -95,17 +106,18 @@ QVector< QPair<int, double> > MainWindow::lenghtData()
         data.append(qMakePair(l, p));
     }
     return data;
-}
+}*/
 
 void MainWindow::on_startButton_clicked()
 {
     IA.start(filePath);
     ProbabilitiesCalculator prob;
     prob.calculate(IA.getColorCount(), IA.getTotalPixels());
-    QVector<Symbol> symbols;
 
-    //FALTA PEDIR EL N ACA O SACARLO DE ALGUN LADO
-    int n = 1;
+
+    QString nText = ui->NBox->toPlainText();
+    int n = nText.toInt();
+
     prob.extend(n, symbols);
     //probs = prob.getProbabilities(); NO SE NECESITA MAS
 
@@ -118,6 +130,8 @@ void MainWindow::on_startButton_clicked()
         qDebug() << "PROBABILITY" << symbols.at(i).getProbability();
         qDebug() << "HUFFCODE" << symbols.at(i).getHuffmanCode();
     }
+
+    startTable();
 
     /*for (int i = 0; i < symbCodification.size(); i++) {
         for (int e = 0; e < symbCodification.at(i).first.size(); e++) {
