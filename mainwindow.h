@@ -9,6 +9,7 @@
 #include "probabilitiescalculator.h"
 #include "huffmanalgorithm.h"
 #include "about.h"
+#include "symbol.h"
 
 namespace Ui {
 class MainWindow;
@@ -41,7 +42,7 @@ private:
     QVector< QPair<int, double> > lenghtData();
     HuffmanAlgorithm HA;
     ImageAnalyzer IA;
-    QVector< QPair<QString, double> > probs;
+    QVector<Symbol> symbols;
     About aboutWindow;
 };
 
