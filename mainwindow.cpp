@@ -102,19 +102,35 @@ void MainWindow::on_startButton_clicked()
     IA.start(filePath);
     ProbabilitiesCalculator prob;
     prob.calculate(IA.getColorCount(), IA.getTotalPixels());
-    QVector< QVector<QString> > symbols;
-    QVector<double> symbProbs;
-    prob.extend(2, symbols, symbProbs);
-    probs = prob.getProbabilities();
-    startTable();
-    HA.setProbabilities(probs);
-    HA.run();
-    QVector< QPair<QString, QString> > solution = HA.getSolution();
-    updateTable(solution);
-    HA.setData(this->lenghtData());
+    QVector<Symbol> symbols;
+
+    //FALTA PEDIR EL N ACA O SACARLO DE ALGUN LADO
+    int n = 1;
+    prob.extend(n, symbols);
+    //probs = prob.getProbabilities(); NO SE NECESITA MAS
+
+    //startTable();
+
+    HA.calculateHuffman(symbols);
+
+    for (int i = 0; i < symbols.size(); i++) {
+        qDebug() << symbols.at(i).getColors();
+        qDebug() << "PROBABILITY" << symbols.at(i).getProbability();
+        qDebug() << "HUFFCODE" << symbols.at(i).getHuffmanCode();
+    }
+
+    /*for (int i = 0; i < symbCodification.size(); i++) {
+        for (int e = 0; e < symbCodification.at(i).first.size(); e++) {
+            qDebug() << symbCodification.at(i).first.at(e);
+        }
+        qDebug() << "CODIGO: " << symbCodification.at(i).second;
+    }*/
+
+    //updateTable(solution);
+    /*HA.setData(this->lenghtData());
     ui->LBox->setText(QString::number(HA.getAverageLength()));
     ui->HBox->setText(QString::number(HA.getEntropy()));
-    ui->nBox->setText(QString::number(HA.getPerformance()));
+    ui->nBox->setText(QString::number(HA.getPerformance()));*/
 }
 
 

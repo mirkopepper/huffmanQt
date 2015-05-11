@@ -4,19 +4,19 @@
 #include <QVector>
 #include <QPair>
 #include <QDebug>
+#include "symbol.h"
 
 class ProbabilitiesCalculator
 {
 public:
     ProbabilitiesCalculator();
     void calculate(const QVector< QPair<QString, int> > &colorCount, int total);
-    void extend(int n, QVector< QVector<QString> > &symbols, QVector<double> &symbProbs);
+    void extend(int n, QVector<Symbol> &symbols);
     void backtrack(int n, QVector<QString> newSymbol, double newProb);
     QVector< QPair<QString, double> > getProbabilities();
 private:
      QVector< QPair<QString, double> > probs;
-     QVector< QVector<QString> > symbols;
-     QVector<double> symbProbs;
+     QVector<Symbol> symbols;
 
 };
 

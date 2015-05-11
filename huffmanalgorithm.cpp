@@ -9,14 +9,13 @@ HuffmanAlgorithm::HuffmanAlgorithm()
 
 }
 
-void HuffmanAlgorithm::setProbabilities(QVector< QPair<QString, double> > p)
-{
-    this->probabilities = p;
-}
 
-void HuffmanAlgorithm::run()
+void HuffmanAlgorithm::calculateHuffman(QVector<Symbol> &symbols)
 {
-    this->sortProbabilities();
+    //INICIALIZAR
+    this->symbols = symbols;
+    //ORDENAR
+    sortByProbs();
     QVector<Node> list = convert();
     while (list.size() > 1)
     {
@@ -29,7 +28,7 @@ void HuffmanAlgorithm::run()
         Node * newNode = new Node;
         newNode->left = NULL;
         newNode->right = NULL;
-        newNode->code = NULL;
+        //newNode->code = NULL;
         newNode->probability = node1->probability + node2->probability;
         newNode->left = node1;
         newNode->right = node2;
@@ -37,6 +36,7 @@ void HuffmanAlgorithm::run()
         insert(list, *newNode);
     }
     generateCode(list.takeFirst(), "");
+    symbols = this->symbols;
 }
 
 void HuffmanAlgorithm::insert(QVector<Node> & list, Node n)
@@ -73,20 +73,33 @@ void HuffmanAlgorithm::generateCode(Node n, QString huffcode)
         generateCode(*n.right, huffcodeRight);
     }
     else {
-        solution.push_back(qMakePair(n.symbol, huffcode));
-    }
+        int i = 0;
+        bool found = false;
+        while (i < symbols.size() && !found) {
+            if (symbols.at(i).getColors() == n.symbol) {
+                Symbol newSymbol;
+                newSymbol = symbols.at(i);
 
+                newSymbol.setHuffmanCode(huffcode);
+
+                symbols.replace(i, newSymbol);
+                qDebug() << symbols.at(i).getHuffmanCode();
+                found = true;
+            }
+            i++;
+        }
+    }
 }
 
 QVector<Node> HuffmanAlgorithm::convert()
 {
     QVector<Node> result;
-    QVector< QPair<QString, double> >::iterator it;
-    for(it=this->probabilities.begin(); it!=this->probabilities.end(); it++)
+    QVector<Symbol>::iterator it;
+    for(it=this->symbols.begin(); it!=this->symbols.end(); it++)
     {
         Node *aux = new Node;
-        aux->symbol = it->first;
-        aux->probability = it->second;
+        aux->symbol = it->getColors();
+        aux->probability = it->getProbability();
         aux->left = NULL;
         aux->right = NULL;
         result.push_back(*aux);
@@ -94,12 +107,12 @@ QVector<Node> HuffmanAlgorithm::convert()
     return result;
 }
 
-void HuffmanAlgorithm::sortProbabilities()
+void HuffmanAlgorithm::sortByProbs()
 {
-    qSort(probabilities.begin(), probabilities.end(), Comparator());
+    qSort(symbols.begin(), symbols.end(), Comparator());
 }
 
-double HuffmanAlgorithm::getAverageLength()
+/*double HuffmanAlgorithm::getAverageLength()
 {
     double sum = 0;
     QVector< QPair<int, double> >::iterator it;
@@ -125,13 +138,13 @@ double HuffmanAlgorithm::getEntropy()
 double HuffmanAlgorithm::getPerformance()
 {
     return this->getEntropy()/this->getAverageLength();
-}
+}*/
 
-QVector< QPair<QString, QString> > HuffmanAlgorithm::getSolution()
+QVector<Symbol> HuffmanAlgorithm::getSolution()
 {
-    return this->solution;
-}
+    return this->symbols;
+}/*
 void HuffmanAlgorithm::setData(QVector<QPair<int, double> > data)
 {
     this->data = data;
-}
+}*/

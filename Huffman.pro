@@ -18,12 +18,14 @@ SOURCES += main.cpp\
     probabilitiescalculator.cpp \
     huffmanalgorithm.cpp \
     about.cpp \
+    symbol.cpp
 
 HEADERS  += mainwindow.h \
     imageanalyzer.h \
     probabilitiescalculator.h \
     huffmanalgorithm.h \
     about.h \
+    symbol.h
 
 FORMS    += mainwindow.ui \
     about.ui \

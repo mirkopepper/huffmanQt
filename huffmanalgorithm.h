@@ -4,12 +4,13 @@
 #include <QVector>
 #include <QString>
 #include <QPair>
+#include "symbol.h"
 
 struct Node
 {
     int code;
     double probability;
-    QString symbol;
+    QVector<QString> symbol;
     Node *left;
     Node *right;
 };
@@ -18,27 +19,28 @@ class HuffmanAlgorithm
 {
 public:
     HuffmanAlgorithm();
-    void setProbabilities(QVector< QPair<QString, double> > p);
-    void run();
-    double getAverageLength();
+    void calculateHuffman(QVector<Symbol> &symbols);
+
+   /* double getAverageLength();
     double getPerformance();
     double getEntropy();
-    void setData(QVector< QPair<int, double> > data);
-    QVector< QPair<QString, QString> > getSolution();
+    void setData(QVector< QPair<int, double> > data);*/
+    QVector<Symbol> getSolution();
 private:
-    void sortProbabilities();
+    void sortByProbs();
     void generateCode(Node n, QString huffcode);
     void insert(QVector<Node> & list, Node n);
-    QVector< QPair<QString, double> > probabilities;
-    QVector< QPair<QString, QString> > solution;
+
+    QVector<Symbol> symbols;
+
     QVector< QPair<int, double> > data;
     QVector<Node> convert();
     struct Comparator
     {
         template<typename T1, typename T2>
-        bool operator()(const QPair<T1,T2> & a, const QPair<T1,T2> & b) const
+        bool operator()(const T1 & a, const T2 & b) const
         {
-            return a.second > b.second;
+            return a.getProbability() > b.getProbability();
         }
     };
 };

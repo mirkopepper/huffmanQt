@@ -24,8 +24,13 @@ void ProbabilitiesCalculator::backtrack(int n, QVector<QString> newSymbol, doubl
         for (int i=0; i < probs.size(); i++) {
             newSymbol.append(probs.at(i).first);
             newProb = newProb * (probs.at(i).second);
-            symbProbs.append(newProb);
-            symbols.append(newSymbol);
+
+            //creating new Symbol
+            Symbol newNode;
+            newNode.setColors(newSymbol);
+            newNode.setProbability(newProb);
+            symbols.append(newNode);
+
             newSymbol.removeLast();
             newProb = newProb / (probs.at(i).second);
         }
@@ -41,17 +46,16 @@ void ProbabilitiesCalculator::backtrack(int n, QVector<QString> newSymbol, doubl
     }
 }
 
-void ProbabilitiesCalculator::extend(int n, QVector< QVector<QString> > &symbols, QVector<double> &symbProbs)
+void ProbabilitiesCalculator::extend(int n, QVector<Symbol> &symbols)
 {
     QVector<QString> tempSymbol;
     double tempProb = 1;
     backtrack(n, tempSymbol, tempProb);
     symbols = this->symbols;
-    symbProbs = this->symbProbs;
-    for (int i = 0; i < symbols.size(); i++) {
+    /*for (int i = 0; i < symbols.size(); i++) {
         for (int e = 0; e < symbols.at(i).size(); e++) {
             qDebug() << symbols.at(i).at(e);
         }
         qDebug() << " " << symbProbs.at(i);
-    }
+    }*/
 }
