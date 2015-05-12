@@ -10,6 +10,7 @@
 #include "huffmanalgorithm.h"
 #include "about.h"
 #include "symbol.h"
+#include "nextension.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +31,8 @@ private slots:
 
     void on_aboutButton_clicked();
 
+    void on_extendButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString filePath;
@@ -42,8 +45,11 @@ private:
     QVector< QPair<int, double> > lenghtData();
     HuffmanAlgorithm HA;
     ImageAnalyzer IA;
-    QVector<Symbol> symbols;
+    ProbabilitiesCalculator prob;
+    QVector<Symbol> orderOneSymbols;
+    QVector<Symbol> orderNSymbols;
     About aboutWindow;
+    NExtension nExtensionWindow;
 };
 
 #endif // MAINWINDOW_H

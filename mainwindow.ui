@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>554</width>
-    <height>517</height>
+    <width>677</width>
+    <height>310</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>20</x>
       <y>60</y>
-      <width>421</width>
-      <height>141</height>
+      <width>511</width>
+      <height>137</height>
      </rect>
     </property>
     <property name="rowCount">
@@ -66,7 +66,7 @@
    <widget class="QTextBrowser" name="LBox">
     <property name="geometry">
      <rect>
-      <x>493</x>
+      <x>593</x>
       <y>60</y>
       <width>51</width>
       <height>31</height>
@@ -76,7 +76,7 @@
    <widget class="QTextBrowser" name="HBox">
     <property name="geometry">
      <rect>
-      <x>493</x>
+      <x>593</x>
       <y>100</y>
       <width>51</width>
       <height>31</height>
@@ -86,7 +86,7 @@
    <widget class="QTextBrowser" name="nBox">
     <property name="geometry">
      <rect>
-      <x>483</x>
+      <x>583</x>
       <y>140</y>
       <width>61</width>
       <height>31</height>
@@ -96,7 +96,7 @@
    <widget class="QLabel" name="LLabel">
     <property name="geometry">
      <rect>
-      <x>453</x>
+      <x>553</x>
       <y>68</y>
       <width>46</width>
       <height>13</height>
@@ -114,7 +114,7 @@
    <widget class="QLabel" name="HLabel">
     <property name="geometry">
      <rect>
-      <x>453</x>
+      <x>553</x>
       <y>108</y>
       <width>46</width>
       <height>13</height>
@@ -132,7 +132,7 @@
    <widget class="QLabel" name="nLabel">
     <property name="geometry">
      <rect>
-      <x>460</x>
+      <x>560</x>
       <y>140</y>
       <width>46</width>
       <height>21</height>
@@ -150,8 +150,8 @@
    <widget class="QPushButton" name="aboutButton">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>420</y>
+      <x>590</x>
+      <y>220</y>
       <width>75</width>
       <height>41</height>
      </rect>
@@ -170,28 +170,28 @@
      </rect>
     </property>
     <property name="text">
-     <string>Select file</string>
+     <string>Select image</string>
     </property>
    </widget>
    <widget class="QPlainTextEdit" name="NBox">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>490</x>
       <y>10</y>
-      <width>41</width>
+      <width>51</width>
       <height>31</height>
      </rect>
     </property>
     <property name="plainText">
-     <string>1</string>
+     <string>2</string>
     </property>
    </widget>
    <widget class="QLabel" name="NLabel">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>450</x>
       <y>15</y>
-      <width>31</width>
+      <width>51</width>
       <height>20</height>
      </rect>
     </property>
@@ -201,7 +201,7 @@
      </font>
     </property>
     <property name="text">
-     <string>N</string>
+     <string>N =</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="fileNameBox">
@@ -217,7 +217,7 @@
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>340</x>
       <y>10</y>
       <width>101</width>
       <height>31</height>
@@ -227,13 +227,52 @@
      <string>Start</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="extendButton">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>10</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Extend</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="compressButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>220</y>
+      <width>75</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Compress</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="decompressButton">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>220</y>
+      <width>75</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Decompress</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>554</width>
+     <width>677</width>
      <height>21</height>
     </rect>
    </property>

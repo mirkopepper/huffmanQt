@@ -36,6 +36,7 @@ void HuffmanAlgorithm::calculateHuffman(QVector<Symbol> &symbols)
         insert(list, *newNode);
     }
     generateCode(list.takeFirst(), "");
+    qDebug() << "YA TERMINOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
     symbols = this->symbols;
 }
 

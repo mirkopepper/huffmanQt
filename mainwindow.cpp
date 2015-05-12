@@ -47,25 +47,24 @@ void MainWindow::displayText()
 void MainWindow::startTable()
 {
     ui->solutionTable->setColumnCount(0);
-    for (int j = 0; j < symbols.size(); j++) {
-        ui->solutionTable->insertColumn(j);
-    }
-    for (int j = 0; j < symbols.size(); j++) {
-        QString symbolString;
-        symbolString.append("{");
-        for (int i = 0; i < symbols.at(j).getColors().size(); i++) {
-            if (i != 0) {
-                symbolString.append(", ");
-            }
-            symbolString.append(symbols.at(j).getColors().at(i));
-        }
-        symbolString.append("}");
 
-        QTableWidgetItem *item = new QTableWidgetItem(symbolString);
+    for (int j = 0; j < orderOneSymbols.size(); j++) {
+        ui->solutionTable->insertColumn(j);
+        QString orderOneSymbolstring;
+        orderOneSymbolstring.append("{");
+        for (int i = 0; i < orderOneSymbols.at(j).getColors().size(); i++) {
+            if (i != 0) {
+                orderOneSymbolstring.append(", ");
+            }
+            orderOneSymbolstring.append(orderOneSymbols.at(j).getColors().at(i));
+        }
+        orderOneSymbolstring.append("}");
+
+        QTableWidgetItem *item = new QTableWidgetItem(orderOneSymbolstring);
         ui->solutionTable->setItem(0, j,item);
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(symbols.at(j).getProbability()));
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(orderOneSymbols.at(j).getProbability()));
         ui->solutionTable->setItem(1, j, item2);
-        QTableWidgetItem *item3 = new QTableWidgetItem(symbols.at(j).getHuffmanCode());
+        QTableWidgetItem *item3 = new QTableWidgetItem(orderOneSymbols.at(j).getHuffmanCode());
         ui->solutionTable->setItem(2, j, item3);
     }
 }
@@ -111,26 +110,20 @@ QVector< QPair<int, double> > MainWindow::lenghtData()
 void MainWindow::on_startButton_clicked()
 {
     IA.start(filePath);
-    ProbabilitiesCalculator prob;
-    prob.calculate(IA.getColorCount(), IA.getTotalPixels());
 
+    this->orderOneSymbols = prob.calculate(IA.getColorCount(), IA.getTotalPixels());
 
-    QString nText = ui->NBox->toPlainText();
-    int n = nText.toInt();
-
-    prob.extend(n, symbols);
     //probs = prob.getProbabilities(); NO SE NECESITA MAS
 
-    //startTable();
 
-    HA.calculateHuffman(symbols);
+    HA.calculateHuffman(orderOneSymbols);
 
-    for (int i = 0; i < symbols.size(); i++) {
-        qDebug() << symbols.at(i).getColors();
-        qDebug() << "PROBABILITY" << symbols.at(i).getProbability();
-        qDebug() << "HUFFCODE" << symbols.at(i).getHuffmanCode();
+    for (int i = 0; i < orderOneSymbols.size(); i++) {
+        qDebug() << orderOneSymbols.at(i).getColors();
+        qDebug() << "PROBABILITY" << orderOneSymbols.at(i).getProbability();
+        qDebug() << "HUFFCODE" << orderOneSymbols.at(i).getHuffmanCode();
     }
-
+    qDebug() << "antes de cargar los datos ORDEN 1";
     startTable();
 
     /*for (int i = 0; i < symbCodification.size(); i++) {
@@ -147,9 +140,20 @@ void MainWindow::on_startButton_clicked()
     ui->nBox->setText(QString::number(HA.getPerformance()));*/
 }
 
-
 void MainWindow::on_aboutButton_clicked()
 {
     aboutWindow.setWindowTitle("About");
     aboutWindow.show();
+}
+
+void MainWindow::on_extendButton_clicked()
+{
+    nExtensionWindow.setWindowTitle("N-Extension");
+    QString nText = ui->NBox->toPlainText();
+    int n = nText.toInt();
+    orderNSymbols.clear();
+    prob.extend(n, orderNSymbols);
+    qDebug() << "antes de cargar los datos ORDEN "<<n;
+    nExtensionWindow.loadData(orderNSymbols);
+    nExtensionWindow.show();
 }
