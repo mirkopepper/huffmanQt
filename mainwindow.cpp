@@ -160,3 +160,12 @@ void MainWindow::on_extendButton_clicked()
     nExtensionWindow.setWindowTitle("N-EXTENSION");
 
 }
+
+void MainWindow::on_compressButton_clicked()
+{
+    FileCompressor FC;
+    QVector<QString> image = IA.toVector();
+    int height = IA.getHeight();
+    int width = IA.getWidth();
+    FC.compress(orderOneSymbols, image, height, width);
+}

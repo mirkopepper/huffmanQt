@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     huffmanalgorithm.cpp \
     about.cpp \
     symbol.cpp \
-    nextension.cpp
+    nextension.cpp \
+    filecompressor.cpp
 
 HEADERS  += mainwindow.h \
     imageanalyzer.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     huffmanalgorithm.h \
     about.h \
     symbol.h \
-    nextension.h
+    nextension.h \
+    filecompressor.h
 
 FORMS    += mainwindow.ui \
     about.ui \
