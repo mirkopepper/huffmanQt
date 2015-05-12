@@ -148,12 +148,15 @@ void MainWindow::on_aboutButton_clicked()
 
 void MainWindow::on_extendButton_clicked()
 {
-    nExtensionWindow.setWindowTitle("N-Extension");
+    nExtensionWindow.setWindowTitle("DATA CALCULATION COMPLETE, PLEASE WAIT");
     QString nText = ui->NBox->toPlainText();
     int n = nText.toInt();
     orderNSymbols.clear();
     prob.extend(n, orderNSymbols);
+
+    nExtensionWindow.show();
     qDebug() << "antes de cargar los datos ORDEN "<<n;
     nExtensionWindow.loadData(orderNSymbols);
-    nExtensionWindow.show();
+    nExtensionWindow.setWindowTitle("N-EXTENSION");
+
 }

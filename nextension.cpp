@@ -15,22 +15,23 @@ NExtension::~NExtension()
 
 void NExtension::loadData(QVector<Symbol> orderNSymbols)
 {
-    ui->nSolutionTable->setColumnCount(0);
+    ui->nTextProbs->clear();
+    ui->nTextSymbols->clear();
+    ui->nTextSymbols->append("Symbols: ");
+    ui->nTextProbs->append("Probabilities: ");
+    ui->nTextSymbols->append(QString::number(orderNSymbols.size()));
+    ui->nTextProbs->append("");
     for (int j = 0; j < orderNSymbols.size(); j++) {
-        ui->nSolutionTable->insertColumn(j);
-        QString orderNSymbolstring;
-        orderNSymbolstring.append("{");
+        QString text;
+        text.append("{");
         for (int i = 0; i < orderNSymbols.at(j).getColors().size(); i++) {
             if (i != 0) {
-                orderNSymbolstring.append(", ");
+                text.append(", ");
             }
-            orderNSymbolstring.append(orderNSymbols.at(j).getColors().at(i));
+           text.append(orderNSymbols.at(j).getColors().at(i));
         }
-        orderNSymbolstring.append("}");
-
-        QTableWidgetItem *item = new QTableWidgetItem(orderNSymbolstring);
-        ui->nSolutionTable->setItem(0, j,item);
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(orderNSymbols.at(j).getProbability()));
-        ui->nSolutionTable->setItem(1, j, item2);
+        text.append("}");
+        ui->nTextSymbols->append(text);
+        ui->nTextProbs->append(QString::number(orderNSymbols.at(j).getProbability()));
     }
 }

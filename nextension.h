@@ -19,7 +19,6 @@ public:
     ~NExtension();
     void loadData(QVector<Symbol> orderNSymbols);
 
-
 private:
     Ui::NExtension *ui;
 };
