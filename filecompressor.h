@@ -14,7 +14,7 @@ public:
     void compress(QVector<Symbol> codes, QVector<QString> image, int height, int width);
     ~FileCompressor();
 private:
-    void codificate();
+    QString codificate(QVector<Symbol> codes, QVector<QString> image);
     QString calculateHeader(QVector<Symbol> codes, int height, int width);
 };
 
