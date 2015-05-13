@@ -68,6 +68,44 @@ QString FileCompressor::calculateHeader(QVector<Symbol> codes, int height, int w
     return tempString;
 }
 
+
+
+void FileCompressor::generateFile(QString header, QString data)
+{
+    QFileDialog dialog;
+    QString filePath;
+    //dialog.getSaveFileName()
+    //dialog.getSaveFileName("","Save file", "", ".hzip");
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter("HuffmanZip (*.hzip)");
+    int result = dialog.exec();
+    if (result)
+        filePath = dialog.selectedFiles().first();
+    else
+        filePath = "";
+
+
+    QFile outputFile(filePath);
+    outputFile.open(QIODevice::WriteOnly);
+
+    /* Check it opened OK */
+    if(!outputFile.isOpen()){
+        qDebug() << "- Error, unable to open" << filePath << "for output";
+    }
+
+    /* Point a QTextStream object at the file */
+    QTextStream outStream(&outputFile);
+
+    /* Write the line to the file */
+    outStream << header << data;
+
+    /* Close the file */
+    outputFile.close();
+
+
+
+}
+
 void FileCompressor::compress(QVector<Symbol> codes, QVector<QString> image, int height, int width)
 {
     //calculo el header en un QString para agregar al archivo de salida
@@ -77,4 +115,5 @@ void FileCompressor::compress(QVector<Symbol> codes, QVector<QString> image, int
     QString compressed = codificate(codes, image);
     qDebug() << compressed;
     //genero el archivo de texto de salida
+    generateFile(header, compressed);
 }
