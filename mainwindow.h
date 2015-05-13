@@ -12,6 +12,7 @@
 #include "symbol.h"
 #include "nextension.h"
 #include "filecompressor.h"
+#include "filedecompressor.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +36,8 @@ private slots:
     void on_extendButton_clicked();
 
     void on_compressButton_clicked();
+
+    void on_decompressButton_clicked();
 
 private:
     Ui::MainWindow *ui;

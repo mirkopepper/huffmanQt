@@ -58,10 +58,11 @@ QString FileCompressor::calculateHeader(QVector<Symbol> codes, int height, int w
     tempString.append(QString::number(width));
     tempString.append(" ");
     tempString.append(QString::number(height));
-    tempString.append("\n");
+    tempString.append(" ");
     for (int i = 0; i < codes.size(); i++) {
-        tempString.append(codes.at(i).getHuffmanCode());
         tempString.append(codes.at(i).getColors().at(0));
+        tempString.append(codes.at(i).getHuffmanCode());
+
 
     }
     return tempString;

@@ -20,6 +20,9 @@ private:
     void decodificate();
     void calculateHeader();
     void generateFile();
+
+    int height;
+    int width;
 };
 
 #endif // FILEDECOMPRESSOR_H

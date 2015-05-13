@@ -104,3 +104,9 @@ void MainWindow::on_compressButton_clicked()
     int width = IA.getWidth();
     FC.compress(orderOneSymbols, image, height, width);
 }
+
+void MainWindow::on_decompressButton_clicked()
+{
+    FileDecompressor FDC;
+    FDC.decompress();
+}

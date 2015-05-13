@@ -38,10 +38,24 @@ void FileDecompressor::decompress()
     QTextStream inStream(&inputFile);
 
     /* Write the line to the file */
-    outStream << header << data;
+
+    QString text = inStream.readAll();
+
 
     /* Close the file */
-    outputFile.close();
+    inputFile.close();
+
+    QStringList list = text.split(" ");
+    qDebug() << list;
+
+    this->width = list.at(0).toInt();
+    this->height = list.at(1).toInt();
+    QStringList codelist = list.at(2).split("#");
+
+    qDebug() << endl << codelist;
+
+
+
 
 }
 
