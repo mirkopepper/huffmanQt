@@ -51,6 +51,7 @@ void FileDecompressor::decompress()
     this->imagedata;
     QStringList codelist = list.at(2).split("#");
     this->header = codelist;
+
 }
 
 void FileDecompressor::decodificate()
@@ -58,7 +59,7 @@ void FileDecompressor::decodificate()
 
 }
 
-void FileDecompressor::calculateHeader()
+void FileDecompressor::headerInterpreter()
 {
 
 }
