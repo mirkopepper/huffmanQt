@@ -48,21 +48,13 @@ void FileDecompressor::decompress()
     QStringList list = text.split(" ",QString::SkipEmptyParts);
     this->width = list.at(0).toInt();
     this->height = list.at(1).toInt();
-<<<<<<< HEAD
-    this->imagedata;
     this->header = list.at(2).split("#", QString::SkipEmptyParts);
+    this->imagedata = list.at(3);
     this->headerInterpreter();
     //Tendria que quedar asi los bits que me da decodificar
     //QString bits = decodificate();
     QString bits = "1010111000010110101101011101010010101010010011110";
     this->generateFile(bits);
-=======
-    this->imagedata = list.at(3);
-    QStringList codelist = list.at(2).split("#");
-    this->header = codelist;
-
-    decodificate();
->>>>>>> origin/master
 }
 
 QString FileDecompressor::decodificate()
