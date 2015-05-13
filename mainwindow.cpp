@@ -24,7 +24,7 @@ void MainWindow::on_selectFileButton_clicked()
     else
         filePath = "";
     fileName = getFileName();
-    displayText();
+    this->displayText();
 }
 
 QString MainWindow::getFileName()
@@ -47,7 +47,6 @@ void MainWindow::displayText()
 void MainWindow::startTable()
 {
     ui->solutionTable->setColumnCount(0);
-
     for (int j = 0; j < orderOneSymbols.size(); j++) {
         ui->solutionTable->insertColumn(j);
         QString orderOneSymbolstring;
@@ -59,7 +58,6 @@ void MainWindow::startTable()
             orderOneSymbolstring.append(orderOneSymbols.at(j).getColors().at(i));
         }
         orderOneSymbolstring.append("}");
-
         QTableWidgetItem *item = new QTableWidgetItem(orderOneSymbolstring);
         ui->solutionTable->setItem(0, j,item);
         QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(orderOneSymbols.at(j).getProbability()));
@@ -74,7 +72,7 @@ void MainWindow::on_startButton_clicked()
     IA.start(filePath);
     this->orderOneSymbols = prob.calculate(IA.getColorCount(), IA.getTotalPixels());
     HA.calculateHuffman(orderOneSymbols);
-    startTable();
+    this->startTable();
     ui->LBox->setText(QString::number(HA.getAverageLength()));
     ui->HBox->setText(QString::number(HA.getEntropy()));
     ui->nBox->setText(QString::number(HA.getPerformance()));
@@ -93,11 +91,9 @@ void MainWindow::on_extendButton_clicked()
     int n = nText.toInt();
     orderNSymbols.clear();
     prob.extend(n, orderNSymbols);
-
     nExtensionWindow.show();
     nExtensionWindow.loadData(orderNSymbols);
     nExtensionWindow.setWindowTitle("N-EXTENSION");
-
 }
 
 void MainWindow::on_compressButton_clicked()

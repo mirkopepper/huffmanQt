@@ -28,7 +28,6 @@ void HuffmanAlgorithm::calculateHuffman(QVector<Symbol> &symbols)
         Node * newNode = new Node;
         newNode->left = NULL;
         newNode->right = NULL;
-        //newNode->code = NULL;
         newNode->probability = node1->probability + node2->probability;
         newNode->left = node1;
         newNode->right = node2;
