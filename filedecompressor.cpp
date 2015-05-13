@@ -82,8 +82,8 @@ QString FileDecompressor::decodificate()
         }
     }
     qDebug() << image.at(0) << image.at(1);
-
-
+    qDebug() << image;
+    return image;
 }
 
 void FileDecompressor::headerInterpreter()
@@ -114,11 +114,14 @@ void FileDecompressor::generateFile(QString bits)
     QByteArray ba;
     QBuffer buffer(&ba);
     //Esto va a tardar por la resolucion de la imagen, no es que se colgo el programa
+    int k = 0;
     for(int i=0; i<this->height; i++)
     {
         for(int j=0; j<this->width; j++)
         {
-            img.setPixel(i,j,colors.first().rgb());
+            //Por cada pixel asigno un valor del Map. Deberia haber la misma cantidad de pixeles que tamaño del map.
+            img.setPixel(i,j,colors.at(k).rgb());
+            k++;
         }
 
     }
