@@ -46,17 +46,11 @@ void FileDecompressor::decompress()
     inputFile.close();
 
     QStringList list = text.split(" ");
-    qDebug() << list;
-
     this->width = list.at(0).toInt();
     this->height = list.at(1).toInt();
+    this->imagedata;
     QStringList codelist = list.at(2).split("#");
-
-    qDebug() << endl << codelist;
-
-
-
-
+    this->header = codelist;
 }
 
 void FileDecompressor::decodificate()

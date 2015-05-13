@@ -18,11 +18,13 @@ public:
     void decompress();
 private:
     void decodificate();
-    void calculateHeader();
+    void headerInterpreter();
     void generateFile();
 
     int height;
     int width;
+    QString imagedata;
+    QStringList header;
 };
 
 #endif // FILEDECOMPRESSOR_H
