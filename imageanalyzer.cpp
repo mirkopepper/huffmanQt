@@ -6,7 +6,6 @@ ImageAnalyzer::ImageAnalyzer()
 
 void ImageAnalyzer::start(QString filePath)
 {
-
     if (image.load(filePath)) {
         this->height = image.height();
         this->width = image.width();
@@ -16,7 +15,6 @@ void ImageAnalyzer::start(QString filePath)
                 QString value = ((QColor)image.pixel(x, y)).name();
                 int i = 0;
                 bool counted = false;
-
                 while (i < colorCount.size() && !counted){
                     if (colorCount.at(i).first == value) {
                         colorCount.replace(i, qMakePair(value, colorCount.at(i).second+1));
@@ -31,7 +29,6 @@ void ImageAnalyzer::start(QString filePath)
         this->ColorCount = colorCount;
         this->totalPixels =  image.width()*image.height();
     }
-    
 }
 
 QVector<QString> ImageAnalyzer::toVector()
@@ -63,5 +60,5 @@ QVector< QPair<QString, int> > ImageAnalyzer::getColorCount()
 
 int ImageAnalyzer::getTotalPixels()
 {
-    return totalPixels;
+    return this->totalPixels;
 }
