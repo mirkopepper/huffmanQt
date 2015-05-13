@@ -18,7 +18,7 @@ public:
     ~FileDecompressor();
     void decompress();
 private:
-    void decodificate();
+    QString decodificate();
     void headerInterpreter();
     void generateFile(QString bits);
     int height;
