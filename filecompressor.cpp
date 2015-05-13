@@ -58,13 +58,12 @@ QString FileCompressor::calculateHeader(QVector<Symbol> codes, int height, int w
     tempString.append(QString::number(width));
     tempString.append(" ");
     tempString.append(QString::number(height));
-    tempString.append(" ");
+    tempString.append("\n");
     for (int i = 0; i < codes.size(); i++) {
         tempString.append(codes.at(i).getHuffmanCode());
         tempString.append(codes.at(i).getColors().at(0));
 
     }
-    tempString.append(" ");
     return tempString;
 }
 
@@ -88,22 +87,14 @@ void FileCompressor::generateFile(QString header, QString data)
     QFile outputFile(filePath);
     outputFile.open(QIODevice::WriteOnly);
 
-    /* Check it opened OK */
-    if(!outputFile.isOpen()){
-        qDebug() << "- Error, unable to open" << filePath << "for output";
-    }
-
     /* Point a QTextStream object at the file */
     QTextStream outStream(&outputFile);
 
     /* Write the line to the file */
-    outStream << header << data;
+    outStream << header << " " << data;
 
     /* Close the file */
     outputFile.close();
-
-
-
 }
 
 void FileCompressor::compress(QVector<Symbol> codes, QVector<QString> image, int height, int width)
