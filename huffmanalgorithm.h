@@ -28,10 +28,7 @@ private:
     void sortByProbs();
     void generateCode(Node n, QString huffcode);
     void insert(QVector<Node> & list, Node n);
-
     QVector<Symbol> symbols;
-
-    QVector< QPair<int, double> > data;
     QVector<Node> convert();
     struct Comparator
     {

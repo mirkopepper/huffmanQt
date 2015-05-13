@@ -12,10 +12,10 @@ HuffmanAlgorithm::HuffmanAlgorithm()
 
 void HuffmanAlgorithm::calculateHuffman(QVector<Symbol> &symbols)
 {
-    //INICIALIZAR
+    //INITIALIZE
     this->symbols = symbols;
-    //ORDENAR
-    sortByProbs();
+    //SORT
+    this->sortByProbs();
     QVector<Node> list = convert();
     while (list.size() > 1)
     {
@@ -33,10 +33,9 @@ void HuffmanAlgorithm::calculateHuffman(QVector<Symbol> &symbols)
         newNode->left = node1;
         newNode->right = node2;
 
-        insert(list, *newNode);
+        this->insert(list, *newNode);
     }
-    generateCode(list.takeFirst(), "");
-    qDebug() << "YA TERMINOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
+    this->generateCode(list.takeFirst(), "");
     symbols = this->symbols;
 }
 
@@ -70,8 +69,8 @@ void HuffmanAlgorithm::generateCode(Node n, QString huffcode)
         huffcodeRight.append(huffcode);
         huffcodeLeft.append(cLeft);
         huffcodeRight.append(cRight);
-        generateCode(*n.left, huffcodeLeft);
-        generateCode(*n.right, huffcodeRight);
+        this->generateCode(*n.left, huffcodeLeft);
+        this->generateCode(*n.right, huffcodeRight);
     }
     else {
         int i = 0;
@@ -80,11 +79,8 @@ void HuffmanAlgorithm::generateCode(Node n, QString huffcode)
             if (symbols.at(i).getColors() == n.symbol) {
                 Symbol newSymbol;
                 newSymbol = symbols.at(i);
-
                 newSymbol.setHuffmanCode(huffcode);
-
                 symbols.replace(i, newSymbol);
-                qDebug() << symbols.at(i).getHuffmanCode();
                 found = true;
             }
             i++;
@@ -119,7 +115,7 @@ double HuffmanAlgorithm::getAverageLength()
     QVector<Symbol>::iterator it;
     for(it=this->symbols.begin(); it!=this->symbols.end(); it++)
     {
-        sum += it->getProbability();
+        sum += it->getProbability()*it->getHuffmanCode().length();
     }
     return sum;
 }
@@ -132,7 +128,6 @@ double HuffmanAlgorithm::getEntropy()
     {
         sum += it->getProbability() * qLn(1/ it->getProbability())/qLn(2);
     }
-
     return sum;
 }
 
