@@ -134,10 +134,10 @@ void MainWindow::on_startButton_clicked()
     }*/
 
     //updateTable(solution);
-    /*HA.setData(this->lenghtData());
+    //HA.setData(this->lenghtData());
     ui->LBox->setText(QString::number(HA.getAverageLength()));
     ui->HBox->setText(QString::number(HA.getEntropy()));
-    ui->nBox->setText(QString::number(HA.getPerformance()));*/
+    ui->nBox->setText(QString::number(HA.getPerformance()));
 }
 
 void MainWindow::on_aboutButton_clicked()

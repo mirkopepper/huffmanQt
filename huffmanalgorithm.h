@@ -21,10 +21,10 @@ public:
     HuffmanAlgorithm();
     void calculateHuffman(QVector<Symbol> &symbols);
 
-   /* double getAverageLength();
+    double getAverageLength();
     double getPerformance();
     double getEntropy();
-    void setData(QVector< QPair<int, double> > data);*/
+    //void setData(QVector< QPair<int, double> > data);
     QVector<Symbol> getSolution();
 private:
     void sortByProbs();
