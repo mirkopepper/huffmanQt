@@ -15,8 +15,8 @@ public:
     QVector< QPair<QString, int> > getColorCount();
     QVector<QString> toVector();
     int getTotalPixels();
-    int getHeight(); const
-    int getWidth(); const
+    int getHeight() const;
+    int getWidth() const;
 private:
     QImage image;
     QVector< QPair<QString, int> > ColorCount;

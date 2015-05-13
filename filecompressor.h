@@ -15,6 +15,7 @@ public:
     ~FileCompressor();
 private:
     void codificate();
+    QString calculateHeader(QVector<Symbol> codes, int height, int width);
 };
 
 #endif // FILECOMPRESSOR_H

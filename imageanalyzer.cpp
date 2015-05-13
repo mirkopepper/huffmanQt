@@ -46,12 +46,12 @@ QVector<QString> ImageAnalyzer::toVector()
     return pixels;
 }
 
-int ImageAnalyzer::getHeight()
+int ImageAnalyzer::getHeight() const
 {
     return this->height;
 }
 
-int ImageAnalyzer::getWidth()
+int ImageAnalyzer::getWidth() const
 {
     return this->width;
 }
