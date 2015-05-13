@@ -144,8 +144,4 @@ double HuffmanAlgorithm::getPerformance()
 QVector<Symbol> HuffmanAlgorithm::getSolution()
 {
     return this->symbols;
-}/*
-void HuffmanAlgorithm::setData(QVector<QPair<int, double> > data)
-{
-    this->data = data;
-}*/
+}
