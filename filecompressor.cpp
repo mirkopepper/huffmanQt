@@ -27,12 +27,14 @@ int searchColor(QVector<Symbol> codes, QString color)
 
 QString FileCompressor::codificate(QVector<Symbol> codes, QVector<QString> image)
 {
-    QString newFile;
-    char buffer = 0;
+    std::string newFile;
+    QVector<QString> cacacaca;
+    char16_t buffer = 0;
     int digits = 0;
     for (int i = 0; i < image.size(); i++) {
         QString color = image.at(i);
         QString huffcode = codes.at(searchColor(codes, color)).getHuffmanCode();
+        cacacaca.append(huffcode);
         int n = huffcode.size();
         for (int i = 0; i < n; i++) {
             buffer=buffer<<1;
@@ -41,14 +43,24 @@ QString FileCompressor::codificate(QVector<Symbol> codes, QVector<QString> image
             }
             else
                 digits++;
-            if (digits == 8) {
+            if (digits == 16) {
                 newFile.push_back(buffer);
                 buffer = 0;
                 digits = 0;
             }
         }
     }
-    return newFile;
+    char temp = newFile.at(0);
+    qDebug() << "EL PRIMER CHAR SIN CODIFICAR ES" <<temp;
+
+    QString asd = QString::fromUtf8( newFile.data(), newFile.size() );
+    QChar temp2 = asd.at(0);
+    qDebug() << "EL PRIMER QCHAR SIN CODIFICAR ES" <<temp2;
+    qDebug() << "EL UNICODE: " << temp2.unicode();
+    QChar temp3 = asd.at(1);
+    qDebug() << "EL PRIMER QCHAR SIN CODIFICAR ES" <<temp3;
+    qDebug() << "EL UNICODE: " << temp3.unicode();
+    return asd;
 
 }
 
@@ -86,7 +98,7 @@ void FileCompressor::generateFile(QString header, QString data)
 
 
     QFile outputFile(filePath);
-    outputFile.open(QIODevice::WriteOnly);
+    outputFile.open(QIODevice::WriteOnly | QIODevice::Text);
 
     /* Point a QTextStream object at the file */
     QTextStream outStream(&outputFile);
