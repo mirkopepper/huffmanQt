@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     about.cpp \
     symbol.cpp \
     nextension.cpp \
-    filecompressor.cpp
+    filecompressor.cpp \
+    filedecompressor.cpp
 
 HEADERS  += mainwindow.h \
     imageanalyzer.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     about.h \
     symbol.h \
     nextension.h \
-    filecompressor.h
+    filecompressor.h \
+    filedecompressor.h
 
 FORMS    += mainwindow.ui \
     about.ui \
