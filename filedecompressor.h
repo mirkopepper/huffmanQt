@@ -8,6 +8,7 @@
 #include <QImage>
 #include <QFile>
 #include <QFileDialog>
+#include <QMap>
 #include "symbol.h"
 
 class FileDecompressor
@@ -19,12 +20,12 @@ public:
 private:
     void decodificate();
     void headerInterpreter();
-    void generateFile();
-
+    void generateFile(QString bits);
     int height;
     int width;
     QString imagedata;
     QStringList header;
+    QMap<QString, QString> codes;
 };
 
 #endif // FILEDECOMPRESSOR_H
