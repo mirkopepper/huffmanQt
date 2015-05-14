@@ -37,7 +37,13 @@ void FileDecompressor::decompress()
     std::string huffmancodes;
     getline(inputFile, huffmancodes);
     std::string data;
-    getline(inputFile, data);
+    while (!inputFile.eof()) {
+        qDebug() << "Y ENTRA";
+        std::string datatemp;
+        getline(inputFile, datatemp);
+        data+=datatemp;
+    }
+
     inputFile.close();
 
     this->width = atoi(width.c_str());
@@ -62,7 +68,7 @@ void FileDecompressor::decodificate(std::string data)
                 image.append("1");
             else
                 image.append("0");
-            mander = (char) (mander << 1);
+            mander = (mander << 1);
         }
     }
     this->imagedata = image;
@@ -73,6 +79,7 @@ void FileDecompressor::headerInterpreter()
     QStringList::iterator it;
     for(it=this->header.begin(); it!=this->header.end(); it++)
     {
+        qDebug() << "-------------";
         this->codes.insert(it->mid(6), it->mid(0,6).prepend("#"));
     }
 }
@@ -80,10 +87,11 @@ void FileDecompressor::headerInterpreter()
 void FileDecompressor::generateFile()
 {
     QString bits = this->imagedata;
+    qDebug() << this->imagedata.size();
     QString aux;
     QVector<QColor> colors;
     QString::iterator it;
-    for(it=bits.begin(); it!=bits.end(); it++)
+    for(it=this->imagedata.begin(); it!=this->imagedata.end(); it++)
     {
         aux += *it;
         if(this->codes.contains(aux))
@@ -92,10 +100,14 @@ void FileDecompressor::generateFile()
             aux.clear();
         }
     }
-    qDebug() << colors;
-    QImage img;
+    qDebug() << colors.size();
+
+    //qDebug() << colors;
+
+    QImage img(this->width, this->height, QImage::Format_ARGB32);
     QByteArray ba;
     QBuffer buffer(&ba);
+    qDebug() << "LLEGA";
     //Esto va a tardar por la resolucion de la imagen, no es que se colgo el programa
     int k = 0;
     for(int i=0; i<this->height; i++)
@@ -103,12 +115,16 @@ void FileDecompressor::generateFile()
         for(int j=0; j<this->width; j++)
         {
             //Por cada pixel asigno un valor del Map. Deberia haber la misma cantidad de pixeles que tamaño del map.
-            img.setPixel(i,j,colors.at(k).rgb());
+
+            img.setPixel(j,i,colors.at(k).rgb());
             k++;
         }
 
     }
+    qDebug() << "SALE?";
+
+
     //Tengo que ver como guardar la imagen
-    img.save(&buffer, "PNG");
+    //img.save(&buffer, "PNG");
 }
 

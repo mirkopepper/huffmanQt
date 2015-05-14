@@ -41,6 +41,35 @@ QString FileCompressor::calculateHeader(QVector<Symbol> codes, int height, int w
     return tempString;
 }
 
+string compressmariano(string line){
+        string result;
+        char buffer = 0;
+        int cant_digitos = 0;
+        int i = 0;
+        while(i<line.size()){
+
+                cant_digitos++;
+                char c = line[i];
+                buffer = buffer << 1;
+                if (c == '1'){
+                        buffer = buffer | 1;
+                }
+
+
+                if (cant_digitos == 8){
+                        result.push_back(buffer);
+                        buffer = 0;
+                        cant_digitos = 0;
+                }
+                i++;
+        }
+        if ((cant_digitos < 8) && (cant_digitos != 0)){
+                buffer = buffer << (8 - cant_digitos);
+                result.push_back(buffer);
+        }
+        return result;
+}
+
 
 
 void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector<QString> image)
@@ -65,25 +94,35 @@ void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector
 
 
     std::ofstream binaryfile;
-    binaryfile.open(filePath.toStdString().c_str());
+    binaryfile.open(filePath.toStdString().c_str(), std::ofstream::binary);
 
     binaryfile << headerstd1 << "\n" << headerstd2 << "\n" << headerstd3 << "\n";
-    QString bits;
+
+
+    qDebug() << "IMAGE SIZE" << image.size();
+
+    string bits;
+
+    string solutiontest;
+
     char buffer = 0;
     int digits = 0;
+    qDebug() << "HAY TANTOS CODES" << codes.size();
     for (int i = 0; i < image.size(); i++) {
         QString color = image.at(i);
         QString huffcode = codes.at(searchColor(codes, color)).getHuffmanCode();
         std::string huff = huffcode.toStdString();
         int n = huffcode.size();
+        bits+=(huff);
         for (int e = 0; e < n; e++) {
-            bits.push_back(huff.at(e));
+            //bits.push_back(huff.at(e));
             buffer=(buffer<<1);
             if (huff.at(e) == '1') {
                 buffer =(buffer | 1);
             }
             digits++;
             if (digits == 8) {
+                solutiontest.push_back(buffer);
                 binaryfile << buffer;
                 buffer = 0;
                 digits = 0;
@@ -93,8 +132,13 @@ void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector
     if ((digits<8)&&(digits!=0)){
         buffer=(char) (buffer<<(8-digits));
         binaryfile << buffer;
+        solutiontest.push_back(buffer);
     }
     binaryfile.close();
+
+    qDebug() << "TAMAÑO DEL STRING DE CHARS " << solutiontest.size();
+    string asddsa = compressmariano(bits);
+    qDebug() << "TAMAÑO DE MARIANO "<< asddsa.size();
 }
 
 void FileCompressor::compress(QVector<Symbol> codes, QVector<QString> image, int height, int width)
