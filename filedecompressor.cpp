@@ -27,24 +27,6 @@ void FileDecompressor::decompress()
         filePath = "";
     //Now we need to separate HEADER from DATA
 
-    /*QFile inputFile(filePath);
-    inputFile.open(QIODevice::ReadOnly | QIODevice::Text);
-
-    /* Check it opened OK */
-    /*if(!inputFile.isOpen()){
-        qDebug() << "- Error, unable to open" << filePath << "for input";
-    }
-
-    /* Point a QTextStream object at the file */
-    /*QTextStream inStream(&inputFile);
-
-    /* Write the line to the file */
-    /*qDebug() << "????????????????????????????????";
-    QString text = inStream.readAll();
-
-    /* Close the file */
-    /*inputFile.close();*/
-
     std::ifstream inputFile;
     inputFile.open(filePath.toStdString());
 
@@ -61,36 +43,29 @@ void FileDecompressor::decompress()
     this->width = atoi(width.c_str());
     this->height = atoi(height.c_str());
     QString mixedcodes = QString::fromUtf8( huffmancodes.data(), huffmancodes.size() );
-
     QStringList newHeader = mixedcodes.split("#");
 
     this->header = newHeader;
-    this->imagedata = data;
-    QString asd = decodificate();
-    //this->headerInterpreter();
-    //Tendria que quedar asi los bits que me da decodificar
-    //QString bits = decodificate();
-    //QString bits = "1010111000010110101101011101010010101010010011110";
-    //this->generateFile(bits);*/
+    this->decodificate(data);
+    this->headerInterpreter();
+    this->generateFile();
 }
 
-QString FileDecompressor::decodificate()
+QString FileDecompressor::decodificate(std::string data)
 {
     QString image;
-    for (int i = 0; i < this->imagedata.size(); i++) {
-        char mander = this->imagedata.at(i);
+    for (int i = 0; i < data.size(); i++) {
+        char mander = data.at(i);
         char mask = 1 << 7;//desplaza el 1, 7 lugares a la izq (32768)
-        for(int e = 0; e<7; e++){
-            if((mander & mask)==mask) //si el 1º bit de num es 1
+        for(int e = 0; e<8; e++){
+            if((mander & mask)==mask)
                 image.append("1");
             else
                 image.append("0");
             mander = (char) (mander << 1);
         }
     }
-
-    qDebug() << image.left(32);
-    return image;
+    this->imagedata = image;
 }
 
 void FileDecompressor::headerInterpreter()
@@ -102,8 +77,9 @@ void FileDecompressor::headerInterpreter()
     }
 }
 
-void FileDecompressor::generateFile(QString bits)
+void FileDecompressor::generateFile()
 {
+    QString bits = this->imagedata;
     QString aux;
     QVector<QColor> colors;
     QString::iterator it;

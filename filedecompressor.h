@@ -27,7 +27,7 @@ private:
     void generateFile(QString bits);
     int height;
     int width;
-    std::string imagedata;
+    QString imagedata;
     QStringList header;
     QMap<QString, QString> codes;
 };
