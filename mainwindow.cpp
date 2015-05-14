@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->compressButton->setDisabled(true);
+    ui->extendButton->setDisabled(true);
 }
 
 MainWindow::~MainWindow()
@@ -17,7 +19,7 @@ void MainWindow::on_selectFileButton_clicked()
 {
     QFileDialog dialog;
     dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.setNameFilter("Image (*.png)");
+    //dialog.setNameFilter("Image");
     int result = dialog.exec();
     if (result)
         filePath = dialog.selectedFiles().first();
@@ -76,6 +78,8 @@ void MainWindow::on_startButton_clicked()
     ui->LBox->setText(QString::number(HA.getAverageLength()));
     ui->HBox->setText(QString::number(HA.getEntropy()));
     ui->nBox->setText(QString::number(HA.getPerformance()));
+    ui->compressButton->setDisabled(false);
+    ui->extendButton->setDisabled(false);
 }
 
 void MainWindow::on_aboutButton_clicked()

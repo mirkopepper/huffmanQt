@@ -15,7 +15,6 @@ FileDecompressor::~FileDecompressor()
 void FileDecompressor::decompress()
 {
     //Opens HZIP file
-    qDebug() << endl << endl;
     QString filePath;
     QFileDialog dialog;
     dialog.setFileMode(QFileDialog::AnyFile);
@@ -34,9 +33,6 @@ void FileDecompressor::decompress()
     strStream << inputFile.rdbuf();
     string allfile = strStream.str();
 
-    qDebug() << "ARCHIVO COMPLETO " << allfile.size();
-
-
     std::string width;
     getline(strStream, width);
     std::string height;
@@ -46,7 +42,6 @@ void FileDecompressor::decompress()
     std::string data;
     int position = width.size()+1+height.size()+1+huffmancodes.size()+1;
     allfile.erase (0,position);
-    qDebug() << "DESPUES DE CORTAR "<< allfile.size();
     data = allfile;
 
     inputFile.close();
@@ -91,50 +86,39 @@ void FileDecompressor::headerInterpreter()
 
 void FileDecompressor::generateFile()
 {
-    qDebug() << "CANTIDAD DE BITS" << this->imagedata.size();
     QString aux;
     QVector<QColor> colors;
     QString::iterator it;
-    for(it=this->imagedata.begin(); it!=this->imagedata.end(); it++)
-    {
+    for(it=this->imagedata.begin(); it!=this->imagedata.end(); it++) {
         aux += *it;
-        if(this->codes.contains(aux))
-        {
+        if(this->codes.contains(aux)) {
             colors.push_back(QColor(this->codes.find(aux).value()));
             aux.clear();
         }
     }
-    qDebug() << colors.size();
-
-    //qDebug() << colors;
-
     QImage img(this->width, this->height, QImage::Format_RGB32);
-    QByteArray ba;
-    QBuffer buffer(&ba);
-    qDebug() << "LLEGA";
-    //Esto va a tardar por la resolucion de la imagen, no es que se colgo el programa
+
     int k = 0;
-    for(int i=0; i<this->height; i++)
-    {
-        for(int j=0; j<this->width; j++)
-        {
-            //Por cada pixel asigno un valor del Map. Deberia haber la misma cantidad de pixeles que tamaño del map.
+    for(int i=0; i<this->height; i++) {
+        for(int j=0; j<this->width; j++) {
             img.setPixel(j,i,colors.at(k).rgb());
             k++;
         }
-
     }
-    qDebug() << "SALE?";
 
+    QFileDialog dialog;
+    QString filePath = dialog.getSaveFileName(0, ("Save File")," ", ("Images (*.bmp)"));
+    /*dialog.setFileMode(QFileDialog::AnyFile);
+    getSaveFileName ()
+    dialog.setNameFilter("BitMap (*.bmp)");
+    int result = dialog.exec();
+    if (result) {
+        filePath = dialog.selectedFiles().first();
+        filePath.append(".bmp");
+    }
+    else
+        filePath = "";*/
 
-    //Tengo que ver como guardar la imagen
-
-    img.save("asd.png",0,0);/*
-    img.save(&buffer, "PNG");
-    QFile file("hola.png");
-    file.open(QIODevice::WriteOnly);
-    file.write(ba);
-    file.close();*/
-
+    img.save(filePath,0,100); // IMAGEN SIN COMPRESION
 }
 

@@ -20,7 +20,7 @@
       <x>20</x>
       <y>60</y>
       <width>511</width>
-      <height>137</height>
+      <height>132</height>
      </rect>
     </property>
     <property name="rowCount">
@@ -245,25 +245,25 @@
      <rect>
       <x>20</x>
       <y>220</y>
-      <width>75</width>
+      <width>141</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>Compress</string>
+     <string>Compress to image</string>
     </property>
    </widget>
    <widget class="QPushButton" name="decompressButton">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>180</x>
       <y>220</y>
-      <width>75</width>
+      <width>141</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>Decompress</string>
+     <string>Decompress from image</string>
     </property>
    </widget>
   </widget>
