@@ -6,6 +6,7 @@ ImageAnalyzer::ImageAnalyzer()
 
 void ImageAnalyzer::start(QString filePath)
 {
+    this->ColorCount.clear();
     if (image.load(filePath)) {
         this->height = image.height();
         this->width = image.width();

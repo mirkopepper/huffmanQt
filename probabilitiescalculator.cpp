@@ -6,11 +6,13 @@ ProbabilitiesCalculator::ProbabilitiesCalculator()
 
 QVector<Symbol> ProbabilitiesCalculator::calculate(const QVector< QPair<QString, int> > &colorCount, int total)
 {
+    probs.clear();
     for (int e = 0; e < colorCount.size(); e++) {
         QString first = colorCount.at(e).first;
         double second = (double)(colorCount.at(e).second)/total;
         probs.push_back(qMakePair(first, second));
     }
+    this->symbols.clear();
     this->backtrackNoRecursion(1);
     return this->symbols;
 }

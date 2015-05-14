@@ -72,6 +72,7 @@ void MainWindow::startTable()
 void MainWindow::on_startButton_clicked()
 {
     IA.start(filePath);
+    this->orderOneSymbols.clear();
     this->orderOneSymbols = prob.calculate(IA.getColorCount(), IA.getTotalPixels());
     HA.calculateHuffman(orderOneSymbols);
     this->startTable();
