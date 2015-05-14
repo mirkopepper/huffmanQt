@@ -108,7 +108,7 @@ void FileDecompressor::generateFile()
 
     //qDebug() << colors;
 
-    QImage img(this->width, this->height, QImage::Format_ARGB32);
+    QImage img(this->width, this->height, QImage::Format_RGB32);
     QByteArray ba;
     QBuffer buffer(&ba);
     qDebug() << "LLEGA";
@@ -119,7 +119,6 @@ void FileDecompressor::generateFile()
         for(int j=0; j<this->width; j++)
         {
             //Por cada pixel asigno un valor del Map. Deberia haber la misma cantidad de pixeles que tamaño del map.
-
             img.setPixel(j,i,colors.at(k).rgb());
             k++;
         }
@@ -129,6 +128,13 @@ void FileDecompressor::generateFile()
 
 
     //Tengo que ver como guardar la imagen
-    //img.save(&buffer, "PNG");
+
+    img.save("asd.png",0,0);/*
+    img.save(&buffer, "PNG");
+    QFile file("hola.png");
+    file.open(QIODevice::WriteOnly);
+    file.write(ba);
+    file.close();*/
+
 }
 
