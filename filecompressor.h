@@ -8,6 +8,9 @@
 #include <QFile>
 #include <QFileDialog>
 #include "symbol.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 class FileCompressor
 {
@@ -18,7 +21,7 @@ public:
 private:
     QString codificate(QVector<Symbol> codes, QVector<QString> image);
     QString calculateHeader(QVector<Symbol> codes, int height, int width);
-    void generateFile(QString header, QString data);
+    void generateFile(QString header, QVector<Symbol> codes, QVector<QString> image);
 };
 
 #endif // FILECOMPRESSOR_H

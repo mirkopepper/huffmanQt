@@ -50,39 +50,44 @@ void FileDecompressor::decompress()
     this->height = list.at(1).toInt();
     this->header = list.at(2).split("#", QString::SkipEmptyParts);
     this->imagedata = list.at(3);
-    this->headerInterpreter();
+    QString asd = decodificate();
+    //this->headerInterpreter();
     //Tendria que quedar asi los bits que me da decodificar
     //QString bits = decodificate();
-    QString bits = "1010111000010110101101011101010010101010010011110";
-    this->generateFile(bits);
+    //QString bits = "1010111000010110101101011101010010101010010011110";
+    //this->generateFile(bits);
 }
 
 QString FileDecompressor::decodificate()
 {
-    QString file = this->imagedata;
+    QString file = this->imagedata.toUtf8();
+    qDebug() << "EL FILE TIENE LOS CARACTERES " << file.left(4);
     std::string filestring = file.toStdString();
+    qDebug() << "EL FILE TIENE LOS CARACTERES " << filestring.at(0) << filestring.at(1) << filestring.at(2);
     char temp = filestring.at(0);
     qDebug() << "EL PRIMER CHAR SIN DECODIFICAR ES" <<temp;
-    QChar temp2 = filestring.at(0);
+    QChar temp2 = file.at(0);
     qDebug() << "EL PRIMER QCHAR SIN CODIFICAR ES" <<temp2;
     qDebug() << "EL UNICODE: " << temp2.unicode();
-    QChar temp3 = filestring.at(1);
+    QChar temp3 = file.at(1);
     qDebug() << "EL PRIMER QCHAR SIN CODIFICAR ES" <<temp3;
     qDebug() << "EL UNICODE: " << temp3.unicode();
 
+
     QString image;
 
-
     for (int i = 0; i < file.size(); i++) {
-        char mander = filestring.at(i);
-        for (int e = 0; e < 16; e++) {
-            int value = (e >> mander) & 1;
-            qDebug() << value;
-            image.append(value);
+
+        char mander = (char)filestring.at(i);
+        for (int e = 0; e < 8; e++) {
+            bool value = ((mander >> e) & 1);
+            if (value)
+                image.append("1");
+            else image.append("0");
         }
     }
-    qDebug() << image.at(0) << image.at(1);
-    qDebug() << image;
+    qDebug() << image.left(32);
+
     return image;
 }
 

@@ -25,42 +25,56 @@ int searchColor(QVector<Symbol> codes, QString color)
     return sol;
 }
 
+
 QString FileCompressor::codificate(QVector<Symbol> codes, QVector<QString> image)
 {
-    std::string newFile;
-    QVector<QString> cacacaca;
-    char16_t buffer = 0;
+    //std::string newFile;
+    QString newFile;
+    QString bits;
+    char buffer = 0;
+    //char buffer = 0;
     int digits = 0;
     for (int i = 0; i < image.size(); i++) {
         QString color = image.at(i);
         QString huffcode = codes.at(searchColor(codes, color)).getHuffmanCode();
-        cacacaca.append(huffcode);
         int n = huffcode.size();
-        for (int i = 0; i < n; i++) {
-            buffer=buffer<<1;
-            if (huffcode.at(i) == '1') {
-                buffer = buffer | 1;
+        for (int e = 0; e < n; e++) {
+            bits.append(huffcode.at(e));
+            buffer=(char) (buffer<<1);
+            if (huffcode.at(e) == '1') {
+                buffer = (char) (buffer | 1);
             }
             else
                 digits++;
-            if (digits == 16) {
-                newFile.push_back(buffer);
+            if (digits == 8) {
+                newFile.push_back((char)(buffer));
                 buffer = 0;
                 digits = 0;
             }
         }
     }
-    char temp = newFile.at(0);
-    qDebug() << "EL PRIMER CHAR SIN CODIFICAR ES" <<temp;
+    if ((digits<8)&&(digits!=0)){
+        buffer=(char) (buffer<<(8-digits));
+    }
+    /*char16_t temp1 = newFile.at(0);
+    char temp2 = newFile.at(0);
+    qDebug() << "LOS ASCII SON";
+    qDebug() << temp1 << int(temp1) << temp2 << int(temp2);*/
 
-    QString asd = QString::fromUtf8( newFile.data(), newFile.size() );
-    QChar temp2 = asd.at(0);
-    qDebug() << "EL PRIMER QCHAR SIN CODIFICAR ES" <<temp2;
-    qDebug() << "EL UNICODE: " << temp2.unicode();
-    QChar temp3 = asd.at(1);
-    qDebug() << "EL PRIMER QCHAR SIN CODIFICAR ES" <<temp3;
-    qDebug() << "EL UNICODE: " << temp3.unicode();
-    return asd;
+    //QString asd = QString::fromUtf8( newFile.data(), newFile.size() );
+    //QString asd = newFile;
+/*
+    QChar temp3 = asd.at(0);
+    qDebug() << "LOS ASCII SON";
+    qDebug() << temp3 << (int)temp3.toLatin1() << endl;*/
+    QString left = bits.left(32);
+    qDebug() << left;
+    //qDebug() << "NEWFILE TIENE LOS CARACTERES" << newFile.at(0) << newFile.at(1) << newFile.at(2);
+    //qDebug() << (int)newFile.at(0);
+    qDebug() << "NEWFILE TIENE LOS CARACTERES" << newFile.left(4);
+    qDebug() << newFile.at(0).unicode() << endl;
+
+    return newFile;
 
 }
 
@@ -82,42 +96,87 @@ QString FileCompressor::calculateHeader(QVector<Symbol> codes, int height, int w
 
 
 
-void FileCompressor::generateFile(QString header, QString data)
+void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector<QString> image)
 {
     QFileDialog dialog;
     QString filePath;
-    //dialog.getSaveFileName()
+    //dialog.getSaveFileName("HuffmanZip (*.hzip)")
     //dialog.getSaveFileName("","Save file", "", ".hzip");
     dialog.setFileMode(QFileDialog::AnyFile);
     dialog.setNameFilter("HuffmanZip (*.hzip)");
     int result = dialog.exec();
-    if (result)
+    if (result) {
         filePath = dialog.selectedFiles().first();
+        filePath.append(".hzip");
+    }
     else
         filePath = "";
 
 
-    QFile outputFile(filePath);
+    /*QFile outputFile(filePath);
     outputFile.open(QIODevice::WriteOnly | QIODevice::Text);
 
     /* Point a QTextStream object at the file */
-    QTextStream outStream(&outputFile);
+    /*QTextStream outStream(&outputFile);
 
     /* Write the line to the file */
-    outStream << header << " " << data;
+    /*outStream << header << " ";
 
     /* Close the file */
-    outputFile.close();
+    /*outputFile.close();*/
+    std::string headerstd = header.toStdString();
+
+
+    std::ofstream binaryfile;
+    binaryfile.open(filePath.toStdString());
+
+
+
+
+    binaryfile << headerstd << " ";
+    QString bits;
+    char buffer = 0;
+    int digits = 0;
+    for (int i = 0; i < image.size(); i++) {
+        QString color = image.at(i);
+        QString huffcode = codes.at(searchColor(codes, color)).getHuffmanCode();
+        std::string huff = huffcode.toStdString();
+        int n = huffcode.size();
+        for (int e = 0; e < n; e++) {
+            bits.push_back(huff.at(e));
+            buffer=(buffer<<1);
+            if (huff.at(e) == '1') {
+                buffer =(buffer | 1);
+            }
+            else
+                digits++;
+            if (digits == 8) {
+                binaryfile << buffer;
+                buffer = 0;
+                digits = 0;
+            }
+        }
+        if ((digits<8)&&(digits!=0)){
+            buffer=(char) (buffer<<(8-digits));
+        }
+    }
+    qDebug() << bits.left(32);
+
+
+    binaryfile.close();
+
+
+
+
+
 }
 
 void FileCompressor::compress(QVector<Symbol> codes, QVector<QString> image, int height, int width)
 {
     //calculo el header en un QString para agregar al archivo de salida
     QString header = calculateHeader(codes, height, width);
-    qDebug() << header;
+
     //codifico segun huffman la imagen en un QString (a nivel bit)
-    QString compressed = codificate(codes, image);
-    qDebug() << compressed;
     //genero el archivo de texto de salida
-    generateFile(header, compressed);
+    generateFile(header, codes, image);
 }

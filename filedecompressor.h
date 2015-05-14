@@ -11,6 +11,7 @@
 #include <QMap>
 #include "symbol.h"
 
+
 class FileDecompressor
 {
 public:
