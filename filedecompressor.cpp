@@ -51,12 +51,12 @@ void FileDecompressor::decompress()
     this->generateFile();
 }
 
-QString FileDecompressor::decodificate(std::string data)
+void FileDecompressor::decodificate(std::string data)
 {
     QString image;
     for (int i = 0; i < data.size(); i++) {
         char mander = data.at(i);
-        char mask = 1 << 7;//desplaza el 1, 7 lugares a la izq (32768)
+        char mask = 1 << 7;
         for(int e = 0; e<8; e++){
             if((mander & mask)==mask)
                 image.append("1");
