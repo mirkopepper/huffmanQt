@@ -22,9 +22,9 @@ public:
     ~FileDecompressor();
     void decompress();
 private:
-    QString decodificate();
+    void decodificate(std::string);
     void headerInterpreter();
-    void generateFile(QString bits);
+    void generateFile();
     int height;
     int width;
     QString imagedata;
