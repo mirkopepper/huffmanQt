@@ -137,6 +137,7 @@ void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector
     binaryfile.close();
 
     qDebug() << "TAMAÑO DEL STRING DE CHARS " << solutiontest.size();
+    qDebug() << "CANTIDAD DE BITS" << bits.size();
     string asddsa = compressmariano(bits);
     qDebug() << "TAMAÑO DE MARIANO "<< asddsa.size();
 }

@@ -28,21 +28,26 @@ void FileDecompressor::decompress()
     //Now we need to separate HEADER from DATA
 
     std::ifstream inputFile;
-    inputFile.open(filePath.toStdString().c_str());
+    inputFile.open(filePath.toStdString().c_str(), std::ifstream::binary);
+
+    stringstream strStream;
+    strStream << inputFile.rdbuf();
+    string allfile = strStream.str();
+
+    qDebug() << "ARCHIVO COMPLETO " << allfile.size();
+
 
     std::string width;
-    getline(inputFile, width);
+    getline(strStream, width);
     std::string height;
-    getline(inputFile, height);
+    getline(strStream, height);
     std::string huffmancodes;
-    getline(inputFile, huffmancodes);
+    getline(strStream, huffmancodes);
     std::string data;
-    while (!inputFile.eof()) {
-        qDebug() << "Y ENTRA";
-        std::string datatemp;
-        getline(inputFile, datatemp);
-        data+=datatemp;
-    }
+    int position = width.size()+1+height.size()+1+huffmancodes.size()+1;
+    allfile.erase (0,position);
+    qDebug() << "DESPUES DE CORTAR "<< allfile.size();
+    data = allfile;
 
     inputFile.close();
 
@@ -52,6 +57,7 @@ void FileDecompressor::decompress()
     QStringList newHeader = mixedcodes.split("#");
 
     this->header = newHeader;
+
     this->decodificate(data);
     this->headerInterpreter();
     this->generateFile();
@@ -79,15 +85,13 @@ void FileDecompressor::headerInterpreter()
     QStringList::iterator it;
     for(it=this->header.begin(); it!=this->header.end(); it++)
     {
-        qDebug() << "-------------";
         this->codes.insert(it->mid(6), it->mid(0,6).prepend("#"));
     }
 }
 
 void FileDecompressor::generateFile()
 {
-    QString bits = this->imagedata;
-    qDebug() << this->imagedata.size();
+    qDebug() << "CANTIDAD DE BITS" << this->imagedata.size();
     QString aux;
     QVector<QColor> colors;
     QString::iterator it;
