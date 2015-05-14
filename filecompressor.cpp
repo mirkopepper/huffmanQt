@@ -65,7 +65,7 @@ void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector
 
 
     std::ofstream binaryfile;
-    binaryfile.open(filePath.toStdString());
+    binaryfile.open(filePath.toStdString().c_str());
 
     binaryfile << headerstd1 << "\n" << headerstd2 << "\n" << headerstd3 << "\n";
     QString bits;

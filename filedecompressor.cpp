@@ -28,7 +28,7 @@ void FileDecompressor::decompress()
     //Now we need to separate HEADER from DATA
 
     std::ifstream inputFile;
-    inputFile.open(filePath.toStdString());
+    inputFile.open(filePath.toStdString().c_str());
 
     std::string width;
     getline(inputFile, width);
