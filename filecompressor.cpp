@@ -13,7 +13,7 @@ FileCompressor::~FileCompressor()
 int searchColor(QVector<Symbol> codes, QString color)
 {
     int i = 0;
-    int sol;
+    int sol = 0;
     bool found = false;
     while (i < codes.size() && !found) {
         if (codes.at(i).getColors().at(0) == color) {

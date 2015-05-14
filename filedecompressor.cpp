@@ -61,7 +61,7 @@ void FileDecompressor::decompress()
 void FileDecompressor::decodificate(std::string data)
 {
     QString image;
-    for (int i = 0; i < data.size(); i++) {
+    for (uint i = 0; i < data.size(); i++) {
         char mander = data.at(i);
         char mask = 1 << 7;
         for(int e = 0; e<8; e++){
