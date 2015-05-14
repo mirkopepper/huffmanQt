@@ -124,7 +124,11 @@ void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector
 
     /* Close the file */
     /*outputFile.close();*/
-    std::string headerstd = header.toStdString();
+    header.append(" ");
+    QStringList list = header.split(" ",QString::SkipEmptyParts);
+    std::string headerstd1 = list.at(0).toStdString();
+    std::string headerstd2 = list.at(1).toStdString();
+    std::string headerstd3 = list.at(2).toStdString();
 
 
     std::ofstream binaryfile;
@@ -133,7 +137,7 @@ void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector
 
 
 
-    binaryfile << headerstd << " ";
+    binaryfile << headerstd1 << "\n" << headerstd2 << "\n" << headerstd3 << "\n";
     QString bits;
     char buffer = 0;
     int digits = 0;
@@ -156,9 +160,11 @@ void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector
                 digits = 0;
             }
         }
-        if ((digits<8)&&(digits!=0)){
-            buffer=(char) (buffer<<(8-digits));
-        }
+
+    }
+    if ((digits<8)&&(digits!=0)){
+        buffer=(char) (buffer<<(8-digits));
+        binaryfile << buffer;
     }
     qDebug() << bits.left(32);
 

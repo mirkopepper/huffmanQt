@@ -27,40 +27,72 @@ void FileDecompressor::decompress()
         filePath = "";
     //Now we need to separate HEADER from DATA
 
-    QFile inputFile(filePath);
+    /*QFile inputFile(filePath);
     inputFile.open(QIODevice::ReadOnly | QIODevice::Text);
 
     /* Check it opened OK */
-    if(!inputFile.isOpen()){
+    /*if(!inputFile.isOpen()){
         qDebug() << "- Error, unable to open" << filePath << "for input";
     }
 
     /* Point a QTextStream object at the file */
-    QTextStream inStream(&inputFile);
+    /*QTextStream inStream(&inputFile);
 
     /* Write the line to the file */
-    qDebug() << "????????????????????????????????";
+    /*qDebug() << "????????????????????????????????";
     QString text = inStream.readAll();
 
     /* Close the file */
+    /*inputFile.close();*/
+
+    std::ifstream inputFile;
+    inputFile.open(filePath.toStdString());
+
+    std::string width;
+    getline(inputFile, width);
+    std::string height;
+    getline(inputFile, height);
+    std::string huffmancodes;
+    getline(inputFile, huffmancodes);
+    std::string data;
+    getline(inputFile, data);
     inputFile.close();
 
-    QStringList list = text.split(" ",QString::SkipEmptyParts);
-    this->width = list.at(0).toInt();
-    this->height = list.at(1).toInt();
-    this->header = list.at(2).split("#", QString::SkipEmptyParts);
-    this->imagedata = list.at(3);
+    this->width = atoi(width.c_str());
+    this->height = atoi(height.c_str());
+    qDebug() << this->width << this->height << endl;
+    QString mixedcodes = QString::fromUtf8( huffmancodes.data(), huffmancodes.size() );
+
+    QStringList newHeader = mixedcodes.split("#");
+
+    this->header = newHeader;
+    this->imagedata = data;
     QString asd = decodificate();
     //this->headerInterpreter();
     //Tendria que quedar asi los bits que me da decodificar
     //QString bits = decodificate();
     //QString bits = "1010111000010110101101011101010010101010010011110";
-    //this->generateFile(bits);
+    //this->generateFile(bits);*/
 }
 
 QString FileDecompressor::decodificate()
 {
-    QString file = this->imagedata.toUtf8();
+    QString image;
+
+    for (int i = 0; i < this->imagedata.size(); i++) {
+        char mander = this->imagedata.at(i);
+        for (int e = 0; e < 8; e++) {
+            bool value = ((mander >> e) & 1);
+            if (value)
+                image.append("1");
+            else image.append("0");
+        }
+    }
+    qDebug() << image.left(32);
+
+
+
+    /*QString file = this->imagedata.toUtf8();
     qDebug() << "EL FILE TIENE LOS CARACTERES " << file.left(4);
     std::string filestring = file.toStdString();
     qDebug() << "EL FILE TIENE LOS CARACTERES " << filestring.at(0) << filestring.at(1) << filestring.at(2);
@@ -86,8 +118,8 @@ QString FileDecompressor::decodificate()
             else image.append("0");
         }
     }
-    qDebug() << image.left(32);
-
+    qDebug() << image.left(32);*/
+    //QString image;
     return image;
 }
 

@@ -10,6 +10,9 @@
 #include <QFileDialog>
 #include <QMap>
 #include "symbol.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 
 class FileDecompressor
@@ -24,7 +27,7 @@ private:
     void generateFile(QString bits);
     int height;
     int width;
-    QString imagedata;
+    std::string imagedata;
     QStringList header;
     QMap<QString, QString> codes;
 };
