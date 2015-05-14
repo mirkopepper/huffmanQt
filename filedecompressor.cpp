@@ -79,7 +79,7 @@ QString FileDecompressor::decodificate()
 {
     QString image;
 
-    for (int i = 0; i < this->imagedata.size(); i++) {
+    /*for (int i = 0; i < this->imagedata.size(); i++) {
         char mander = this->imagedata.at(i);
         for (int e = 0; e < 8; e++) {
             bool value = ((mander >> e) & 1);
@@ -87,7 +87,23 @@ QString FileDecompressor::decodificate()
                 image.append("1");
             else image.append("0");
         }
+    }*/
+
+
+    qDebug() << this->imagedata.at(0) << this->imagedata.at(1);
+    for (int i = 0; i < this->imagedata.size(); i++) {
+        char mander = this->imagedata.at(i);
+        char mask = 1 << 7;//desplaza el 1, 7 lugares a la izq (32768)
+        for(int e = 0; e<8; e++){
+            qDebug() << (mander & mask);
+            if((mander & mask)==mask) //si el 1º bit de num es 1
+                image.append("1");
+            else
+                image.append("0");
+            mander = (char) (mander << 1);
+        }
     }
+
     qDebug() << image.left(32);
 
 

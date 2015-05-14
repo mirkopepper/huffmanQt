@@ -155,6 +155,7 @@ void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector
             else
                 digits++;
             if (digits == 8) {
+                qDebug() << buffer;
                 binaryfile << buffer;
                 buffer = 0;
                 digits = 0;
