@@ -142,22 +142,22 @@ void FileCompressor::generateFile(QString header, QVector<Symbol> codes, QVector
     char buffer = 0;
     int digits = 0;
     for (int i = 0; i < image.size(); i++) {
-    //for (int i = 0; i < 2; i++) {
+    //for (int i = 0; i < 5; i++) {
         QString color = image.at(i);
         QString huffcode = codes.at(searchColor(codes, color)).getHuffmanCode();
         std::string huff = huffcode.toStdString();
-        //qDebug() << huff;
         int n = huffcode.size();
         for (int e = 0; e < n; e++) {
             bits.push_back(huff.at(e));
             buffer=(buffer<<1);
             if (huff.at(e) == '1') {
                 buffer =(buffer | 1);
-                digits++;
             }
-            else
-                digits++;
+            digits++;
+            //qDebug() << digits;
+
             if (digits == 8) {
+                //qDebug() << buffer;
                 binaryfile << buffer;
                 buffer = 0;
                 digits = 0;

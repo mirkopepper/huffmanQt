@@ -60,7 +60,6 @@ void FileDecompressor::decompress()
 
     this->width = atoi(width.c_str());
     this->height = atoi(height.c_str());
-    qDebug() << this->width << this->height << endl;
     QString mixedcodes = QString::fromUtf8( huffmancodes.data(), huffmancodes.size() );
 
     QStringList newHeader = mixedcodes.split("#");
@@ -78,24 +77,10 @@ void FileDecompressor::decompress()
 QString FileDecompressor::decodificate()
 {
     QString image;
-
-    /*for (int i = 0; i < this->imagedata.size(); i++) {
-        char mander = this->imagedata.at(i);
-        for (int e = 0; e < 8; e++) {
-            bool value = ((mander >> e) & 1);
-            if (value)
-                image.append("1");
-            else image.append("0");
-        }
-    }*/
-
-
-    qDebug() << this->imagedata.at(0) << this->imagedata.at(1);
     for (int i = 0; i < this->imagedata.size(); i++) {
         char mander = this->imagedata.at(i);
         char mask = 1 << 7;//desplaza el 1, 7 lugares a la izq (32768)
-        for(int e = 0; e<8; e++){
-            qDebug() << (mander & mask);
+        for(int e = 0; e<7; e++){
             if((mander & mask)==mask) //si el 1º bit de num es 1
                 image.append("1");
             else
@@ -105,37 +90,6 @@ QString FileDecompressor::decodificate()
     }
 
     qDebug() << image.left(32);
-
-
-
-    /*QString file = this->imagedata.toUtf8();
-    qDebug() << "EL FILE TIENE LOS CARACTERES " << file.left(4);
-    std::string filestring = file.toStdString();
-    qDebug() << "EL FILE TIENE LOS CARACTERES " << filestring.at(0) << filestring.at(1) << filestring.at(2);
-    char temp = filestring.at(0);
-    qDebug() << "EL PRIMER CHAR SIN DECODIFICAR ES" <<temp;
-    QChar temp2 = file.at(0);
-    qDebug() << "EL PRIMER QCHAR SIN CODIFICAR ES" <<temp2;
-    qDebug() << "EL UNICODE: " << temp2.unicode();
-    QChar temp3 = file.at(1);
-    qDebug() << "EL PRIMER QCHAR SIN CODIFICAR ES" <<temp3;
-    qDebug() << "EL UNICODE: " << temp3.unicode();
-
-
-    QString image;
-
-    for (int i = 0; i < file.size(); i++) {
-
-        char mander = (char)filestring.at(i);
-        for (int e = 0; e < 8; e++) {
-            bool value = ((mander >> e) & 1);
-            if (value)
-                image.append("1");
-            else image.append("0");
-        }
-    }
-    qDebug() << image.left(32);*/
-    //QString image;
     return image;
 }
 
