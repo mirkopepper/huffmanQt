@@ -99,6 +99,9 @@ void MainWindow::on_extendButton_clicked()
     nExtensionWindow.show();
     nExtensionWindow.loadData(orderNSymbols);
     nExtensionWindow.setWindowTitle("N-EXTENSION");
+    HA.calculateHuffman(orderNSymbols);
+    ui->LBox2->setText(QString::number(HA.getAverageLength()));
+
 }
 
 void MainWindow::on_compressButton_clicked()
